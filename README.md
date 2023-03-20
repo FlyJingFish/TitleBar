@@ -8,7 +8,7 @@
 [![GitHub license](https://img.shields.io/github/license/FlyJingFish/TitleBar.svg)](https://github.com/FlyJingFish/TitleBar/blob/master/LICENSE)
 
 
-<img src="https://github.com/FlyJingFish/TitleBar/blob/master/screenshot/Screenshot_20230320_160819.jpg" width="360px" height="720px" alt="show" />
+<img src="https://github.com/FlyJingFish/TitleBar/blob/master/screenshot/Screenshot_20230320_161148.jpg" width="360px" height="720px" alt="show" />
 
 
 ## 第一步，根目录build.gradle
