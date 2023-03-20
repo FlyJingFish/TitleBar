@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TitleBar</string>
+    <string name="str_no_network">The network is currently unavailable</string>
+    <string name="str_no_data">There is no data</string>
+</resources>
