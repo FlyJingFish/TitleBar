@@ -92,6 +92,9 @@ public class TitleBar extends RelativeLayout {
         }
     }
 
+    /**
+     * 添加到 Window 层
+     */
     public void attachToWindow() {
         if (getContext() instanceof LifecycleOwner) {
             ((LifecycleOwner) getContext()).getLifecycle().addObserver(new LifecycleEventObserver() {
@@ -147,6 +150,10 @@ public class TitleBar extends RelativeLayout {
 
     }
 
+    /**
+     * 获取右侧 TextView
+     * @return TextView
+     */
     public TextView getRightTextView() {
         TextView rightTextView;
         if (rightContainer.getChildCount() == 0 || (rightTextView = rightContainer.findViewById(R.id.tv_right_view)) == null) {
@@ -156,6 +163,10 @@ public class TitleBar extends RelativeLayout {
         return rightTextView;
     }
 
+    /**
+     * 获取右侧 ImageView
+     * @return ImageView
+     */
     public ImageView getRightImageView() {
         ImageView rightImageView;
         if (rightContainer.getChildCount() == 0 || (rightImageView = rightContainer.findViewById(R.id.iv_right_view)) == null) {
@@ -165,14 +176,27 @@ public class TitleBar extends RelativeLayout {
         return rightImageView;
     }
 
+    /**
+     * 获取返回 ImageView
+     * @return ImageView
+     */
     public ImageView getBackView() {
         return backView;
     }
-
+    /**
+     * 获取标题 TextView
+     * @return TextView
+     */
     public TextView getTitleView() {
         return titleView;
     }
 
+    /**
+     * 设置底部 Shadow 样式
+     * @param shadowHeightDp shadow 高度
+     * @param shadowColor shadow 颜色
+     * @param shadowType shadow 样式 {@link ShadowType#LINE} 实线 / {@link ShadowType#GRADIENT} 渐变线
+     */
     public void setShadow(float shadowHeightDp, @ColorInt int shadowColor, ShadowType shadowType) {
         int[] colors;
         if (shadowType == ShadowType.GRADIENT) {
@@ -184,10 +208,16 @@ public class TitleBar extends RelativeLayout {
         shadowLine.setShadowMaxLength(ScreenUtils.dp2px(getContext(), shadowHeightDp));
     }
 
+    /**
+     * 隐藏 Shadow
+     */
     public void hideShadow() {
         shadowLine.setVisibility(GONE);
     }
 
+    /**
+     * 显示 Shadow
+     */
     public void showShadow() {
         shadowLine.setVisibility(VISIBLE);
     }
@@ -212,34 +242,66 @@ public class TitleBar extends RelativeLayout {
         setTitleBarBackgroundWithStatusBar(background);
     }
 
+    /**
+     * 设置标题栏背景 （包含了状态栏）
+     * @param background 背景 Drawable
+     */
     public void setTitleBarBackgroundWithStatusBar(Drawable background) {
         backgroundView.setBackground(background);
     }
 
+    /**
+     * 设置标题栏背景 （包含了状态栏）
+     * @param resid 背景资源图
+     */
     public void setTitleBarBackgroundResourceWithStatusBar(int resid) {
         backgroundView.setBackgroundResource(resid);
     }
 
+    /**
+     * 设置标题栏背景 （包含了状态栏）
+     * @param color 背景颜色
+     */
     public void setTitleBarBackgroundColorWithStatusBar(int color) {
         backgroundView.setBackgroundColor(color);
     }
 
+    /**
+     * 设置标题栏背景 （不包含状态栏）
+     * @param background 背景 Drawable
+     */
     public void setTitleBarBackground(Drawable background) {
         titleBarContainer.setBackground(background);
     }
 
+    /**
+     * 设置标题栏背景 （不包含状态栏）
+     * @param resid 背景资源图
+     */
     public void setTitleBarBackgroundResource(int resid) {
         titleBarContainer.setBackgroundResource(resid);
     }
 
+    /**
+     * 设置标题栏背景 （不包含状态栏）
+     * @param color 背景颜色
+     */
     public void setTitleBarBackgroundColor(int color) {
         titleBarContainer.setBackgroundColor(color);
     }
 
+    /**
+     * 设置自定义View
+     * @param view 自定义View
+     */
     public void setCustomView(View view) {
         setCustomView(view, null);
     }
 
+    /**
+     * 设置自定义View
+     * @param view 自定义View
+     */
     public void setCustomView(View view, FrameLayout.LayoutParams layoutParams) {
         customViewContainer.removeAllViews();
         if (layoutParams != null) {
@@ -249,10 +311,18 @@ public class TitleBar extends RelativeLayout {
         }
     }
 
+    /**
+     * 设置右侧自定义View
+     * @param view 自定义View
+     */
     public void setCustomRightView(View view) {
         setCustomRightView(view, null);
     }
 
+    /**
+     * 设置右侧自定义View
+     * @param view 自定义View
+     */
     public void setCustomRightView(View view, FrameLayout.LayoutParams layoutParams) {
         rightContainer.removeAllViews();
         if (layoutParams != null) {
@@ -262,10 +332,17 @@ public class TitleBar extends RelativeLayout {
         }
     }
 
+    /**
+     * 设置左侧自定义View
+     * @param view 自定义View
+     */
     public void setCustomLeftView(View view) {
         setCustomLeftView(view, null);
     }
-
+    /**
+     * 设置左侧自定义View
+     * @param view 自定义View
+     */
     public void setCustomLeftView(View view, FrameLayout.LayoutParams layoutParams) {
         leftContainer.removeAllViews();
         if (layoutParams != null) {
@@ -275,24 +352,38 @@ public class TitleBar extends RelativeLayout {
         }
     }
 
+    /**
+     * 设置标题
+     * @param text 标题
+     */
     public void setTitle(CharSequence text) {
         if (titleView != null) {
             titleView.setText(text);
         }
     }
-
+    /**
+     * 设置标题
+     * @param resid 标题id
+     */
     public void setTitle(@StringRes int resid) {
         if (titleView != null) {
             titleView.setText(resid);
         }
     }
-
+    /**
+     * 设置标题颜色
+     * @param color 颜色
+     */
     public void setTitleColor(@ColorInt int color) {
         if (titleView != null) {
             titleView.setTextColor(color);
         }
     }
 
+    /**
+     * 设置标题位置
+     * @param gravity 位置 {@link TitleGravity}
+     */
     public void setTitleGravity(TitleGravity gravity) {
         titleGravity = gravity;
         ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) titleView.getLayoutParams();
@@ -329,34 +420,53 @@ public class TitleBar extends RelativeLayout {
         titleView.setLayoutParams(layoutParams);
     }
 
+    /**
+     * 设置返回点击监听
+     * @param listener 监听器
+     */
     public void setOnBackViewClickListener(OnClickListener listener) {
-        if (backView != null) {
-            backView.setOnClickListener(listener);
+        if (leftContainer != null) {
+            leftContainer.setOnClickListener(listener);
         }
     }
-
+    /**
+     * 设置返回长按监听
+     * @param listener 监听器
+     */
     public void setOnBackViewLongClickListener(OnLongClickListener listener) {
-        if (backView != null) {
-            backView.setOnLongClickListener(listener);
+        if (leftContainer != null) {
+            leftContainer.setOnLongClickListener(listener);
         }
     }
 
+    /**
+     * 设置右侧点击监听
+     * @param listener 监听器
+     */
     public void setOnRightViewClickListener(OnClickListener listener) {
         if (rightContainer != null) {
             rightContainer.setOnClickListener(listener);
         }
     }
-
+    /**
+     * 设置右侧长按监听
+     * @param listener 监听器
+     */
     public void setOnRightViewLongClickListener(OnLongClickListener listener) {
         if (rightContainer != null) {
             rightContainer.setOnLongClickListener(listener);
         }
     }
 
+    /**
+     * 隐藏 titleBar
+     */
     public void hide() {
         setVisibility(GONE);
     }
-
+    /**
+     * 显示 titleBar
+     */
     public void show() {
         setVisibility(VISIBLE);
     }
