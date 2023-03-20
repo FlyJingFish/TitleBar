@@ -69,35 +69,35 @@ public class BaseActivity extends AppCompatActivity {
 
 **方法说明**
 
-| 方法                                           |       方法说明       |
-|----------------------------------------------|:----------------:|
-| attachToWindow                               |  加入到页面 Window 层  |
-| setShadow                                    |  设置底部 Shadow 样式  |
-| hideShadow                                   |    隐藏 Shadow     |
-| showShadow                                   |    显示 Shadow     |
-| getRightTextView                             |  获取右侧 TextView   |
-| getRightImageView                            |  获取右侧 ImageView  |
-| getBackView                                  | 获取返回按钮 ImageView |
-| getTitleView                                 |  获取标题 TextView   |
-| setTitleBarBackgroundWithStatusBar           |   设置标题栏背景包含状态栏   |
-| setTitleBarBackgroundResourceWithStatusBar   |   设置标题栏背景包含状态栏   |
-| setTitleBarBackgroundColorWithStatusBar      |   设置标题栏背景包含状态栏   |
-| setTitleBarBackground                        | 设置标题栏背景 不 包含状态栏  |
-| setTitleBarBackgroundResource                | 设置标题栏背景 不 包含状态栏  |
-| setTitleBarBackgroundColor                   | 设置标题栏背景包 不 含状态栏  |
-| setCustomView                                |    设置自定义View     |
-| setCustomRightView                           |   设置右侧自定义View    |
-| setCustomLeftView                            |   设置左侧自定义View    |
-| setTitle                                     |       设置标题       |
-| setTitleColor                                |      设置标题颜色      |
-| setTitleGravity                              |   设置标题位置（左中右）    |
-| setAboveContent                              | TitleBar 是否在内容上边 |
-| setOnBackViewClickListener                   |     设置返回点击监听     |
-| setOnBackViewLongClickListener               |     设置返回长按监听     |
-| setOnRightViewClickListener                  |     设置右侧点击监听     |
-| setOnRightViewLongClickListener              |     设置右侧长按监听     |
-| show                                         |   显示 TitleBar    |
-| hide                                         |   隐藏 TitleBar    |
+| 方法                                           |                             方法说明                              |
+|----------------------------------------------|:-------------------------------------------------------------:|
+| attachToWindow                               |                        加入到页面 Window 层                         |
+| setShadow                                    |                        设置底部 Shadow 样式                         |
+| hideShadow                                   |                           隐藏 Shadow                           |
+| showShadow                                   |                           显示 Shadow                           |
+| getRightTextView                             |                         获取右侧 TextView                         |
+| getRightImageView                            |                        获取右侧 ImageView                         |
+| getBackView                                  |                       获取返回按钮 ImageView                        |
+| getTitleView                                 |                         获取标题 TextView                         |
+| setTitleBarBackgroundWithStatusBar           |                         设置标题栏背景包含状态栏                          |
+| setTitleBarBackgroundResourceWithStatusBar   |                         设置标题栏背景包含状态栏                          |
+| setTitleBarBackgroundColorWithStatusBar      |                         设置标题栏背景包含状态栏                          |
+| setTitleBarBackground                        |                        设置标题栏背景 不 包含状态栏                        |
+| setTitleBarBackgroundResource                |                        设置标题栏背景 不 包含状态栏                        |
+| setTitleBarBackgroundColor                   |                        设置标题栏背景包 不 含状态栏                        |
+| setCustomView                                |                           设置自定义View                           |
+| setCustomRightView                           |                          设置右侧自定义View                          |
+| setCustomLeftView                            |                          设置左侧自定义View                          |
+| setTitle                                     |                             设置标题                              |
+| setTitleColor                                |                            设置标题颜色                             |
+| setTitleGravity                              |                          设置标题位置（左中右）                          |
+| setAboveContent                              | TitleBar 是否在内容上边（true则TitleBar和布局成上下结构，false则TitleBar覆盖在布局上方） |
+| setOnBackViewClickListener                   |                           设置返回点击监听                            |
+| setOnBackViewLongClickListener               |                           设置返回长按监听                            |
+| setOnRightViewClickListener                  |                           设置右侧点击监听                            |
+| setOnRightViewLongClickListener              |                           设置右侧长按监听                            |
+| show                                         |                          显示 TitleBar                          |
+| hide                                         |                          隐藏 TitleBar                          |
 
 **全局设置**
 

@@ -476,6 +476,10 @@ public class TitleBar extends RelativeLayout {
         return aboveContent;
     }
 
+    /**
+     * TitleBar 是否在内容上边
+     * @param aboveContent true则TitleBar和布局成上下结构，false则TitleBar覆盖在布局上方
+     */
     public void setAboveContent(boolean aboveContent) {
         this.aboveContent = aboveContent;
         setTitleBarPaddings();
