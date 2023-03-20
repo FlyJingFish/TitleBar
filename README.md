@@ -62,7 +62,7 @@ public class BaseActivity extends AppCompatActivity {
 }
 ```
 
-### 方法说明
+**方法说明**
 
 | 方法                                           |       方法说明       |
 |----------------------------------------------|:----------------:|
@@ -93,8 +93,40 @@ public class BaseActivity extends AppCompatActivity {
 | show                                         |   显示 TitleBar    |
 | hide                                         |   隐藏 TitleBar    |
 
+**全局设置**
 
+加入以下设置可实现全局设置
 
+```xml
+<resources>
+    <!-- TitleBar 最小高度 -->
+    <dimen name="title_bar_minHeight">50dp</dimen>
+    <!-- 返回图片宽度 -->
+    <dimen name="title_bar_backView_width">20dp</dimen>
+    <!-- 返回图片高度 -->
+    <dimen name="title_bar_backView_height">20dp</dimen>
+    <!-- 返回图片距离左侧距离 -->
+    <dimen name="title_bar_backView_marginStart">12dp</dimen>
+    <!-- 返回图片距离右侧距离 -->
+    <dimen name="title_bar_backView_marginEnd">12dp</dimen>
+    <!-- 右侧ImageView图片宽度 -->
+    <dimen name="title_bar_rightImageview_width">20dp</dimen>
+    <!-- 右侧ImageView图片高度 -->
+    <dimen name="title_bar_rightImageview_height">20dp</dimen>
+    <!-- 右侧View图片距离左侧距离 -->
+    <dimen name="title_bar_rightView_marginStart">15dp</dimen>
+    <!-- 右侧View图片距离右侧距离 -->
+    <dimen name="title_bar_rightView_marginEnd">15dp</dimen>
+    <!-- 标题大小 -->
+    <dimen name="title_bar_title_textSize">16sp</dimen>
+    <!-- 标题颜色 -->
+    <color name="title_bar_title_textColor">#000000</color>
+    <!-- 右侧TextView 字体大小 -->
+    <dimen name="title_bar_rightTextView_textSize">16sp</dimen>
+    <!-- 右侧TextView 字体颜色 -->
+    <color name="title_bar_rightTextView_textColor">#000000</color>
+</resources>
+```
 
 # 最后推荐我写的另一个库，轻松实现在应用内点击小图查看大图的动画放大效果
 
