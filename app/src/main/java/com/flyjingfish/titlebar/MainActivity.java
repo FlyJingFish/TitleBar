@@ -12,7 +12,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public String getTitleString() {
-        return "首页";
+        return "这里是标题";
     }
 
     @Override
@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity {
                 titleBar.getRightTextView().setVisibility(View.GONE);
                 titleBar.setTitleBarBackgroundColorWithStatusBar(Color.WHITE);
                 titleBar.getRightImageView().setOnClickListener(v -> Toast.makeText(v.getContext(),"more",Toast.LENGTH_SHORT).show());
-                titleBar.hideShadow();
+//                titleBar.hideShadow();
                 break;
             case R.id.btn_3:
                 titleBar.getRightTextView().setVisibility(View.VISIBLE);
