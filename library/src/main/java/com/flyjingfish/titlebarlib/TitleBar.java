@@ -33,6 +33,7 @@ public class TitleBar extends RelativeLayout {
     private final ShadowLine shadowLine;
     private final FrameLayout rightContainer;
     private final FrameLayout leftContainer;
+    private boolean aboveContent = true;
     private boolean isLayout;
     private boolean isSetTitleGravity;
     private static final TitleGravity DEFAULT_TITLE_GRAVITY = TitleGravity.CENTER;
@@ -139,7 +140,7 @@ public class TitleBar extends RelativeLayout {
                 int[] contentLat = new int[2];
                 content.getLocationOnScreen(contentLat);
                 int paddingTop = (int) (contentLat[1] == 0 ? TitleBar.this.getHeight() - shadowLine.getShadowMaxLength() : titleBarContainer.getHeight());
-                content.setPadding(0, paddingTop, 0, 0);
+                content.setPadding(0, aboveContent ?paddingTop:0, 0, 0);
 
                 int leftMargin = contentLat[0];
                 TitleBar.this.setPadding(leftMargin, 0, leftMargin > 0 ? 0 : TitleBar.this.getWidth() - content.getWidth(), 0);
@@ -469,5 +470,14 @@ public class TitleBar extends RelativeLayout {
      */
     public void show() {
         setVisibility(VISIBLE);
+    }
+
+    public boolean isAboveContent() {
+        return aboveContent;
+    }
+
+    public void setAboveContent(boolean aboveContent) {
+        this.aboveContent = aboveContent;
+        setTitleBarPaddings();
     }
 }

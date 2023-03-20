@@ -44,6 +44,10 @@ public class BaseActivity extends AppCompatActivity {
         return "";
     }
 
+    public boolean titleAboveContent(){
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +61,7 @@ public class BaseActivity extends AppCompatActivity {
             titleBar.hide();
         }
         titleBar.setTitle(getTitleString());
+        titleBar.setAboveContent(titleAboveContent());
         titleBar.attachToWindow();
     }
 }
@@ -86,6 +91,7 @@ public class BaseActivity extends AppCompatActivity {
 | setTitle                                     |       设置标题       |
 | setTitleColor                                |      设置标题颜色      |
 | setTitleGravity                              |   设置标题位置（左中右）    |
+| setAboveContent                              | TitleBar 是否在内容上边 |
 | setOnBackViewClickListener                   |     设置返回点击监听     |
 | setOnBackViewLongClickListener               |     设置返回长按监听     |
 | setOnRightViewClickListener                  |     设置右侧点击监听     |

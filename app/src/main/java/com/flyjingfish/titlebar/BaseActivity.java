@@ -18,6 +18,10 @@ public class BaseActivity extends AppCompatActivity {
         return "";
     }
 
+    public boolean titleAboveContent(){
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +35,7 @@ public class BaseActivity extends AppCompatActivity {
             titleBar.hide();
         }
         titleBar.setTitle(getTitleString());
+        titleBar.setAboveContent(titleAboveContent());
         titleBar.attachToWindow();
     }
 }

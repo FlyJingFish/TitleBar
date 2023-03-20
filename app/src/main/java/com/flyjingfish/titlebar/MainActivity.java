@@ -31,6 +31,7 @@ public class MainActivity extends BaseActivity {
                 titleBar.setTitleBarBackgroundColorWithStatusBar(Color.RED);
                 titleBar.getRightImageView().setVisibility(View.GONE);
                 titleBar.showShadow();
+                titleBar.setAboveContent(false);
                 break;
             case R.id.btn_2:
                 titleBar.setTitleGravity(TitleBar.TitleGravity.CENTER);
@@ -38,6 +39,7 @@ public class MainActivity extends BaseActivity {
                 titleBar.setTitleBarBackgroundColorWithStatusBar(Color.WHITE);
                 titleBar.getRightImageView().setOnClickListener(v -> Toast.makeText(v.getContext(),"more",Toast.LENGTH_SHORT).show());
 //                titleBar.hideShadow();
+                titleBar.setAboveContent(true);
                 break;
             case R.id.btn_3:
                 titleBar.getRightTextView().setVisibility(View.VISIBLE);
