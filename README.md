@@ -64,7 +64,7 @@ public class BaseActivity extends AppCompatActivity {
 
 ### 方法说明
 
-| 方法                                           |   description    |
+| 方法                                           |       方法说明       |
 |----------------------------------------------|:----------------:|
 | attachToWindow                               |  加入到页面 Window 层  |
 | setShadow                                    |  设置底部 Shadow 样式  |
