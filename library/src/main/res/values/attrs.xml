@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TitleBar">
+        <attr name="title_bar_title" format="string" />
+        <attr name="title_bar_back_src" format="reference|color" />
+        <attr name="title_bar_right_type" format="enum">
+            <enum name="none" value="0" />
+            <enum name="text" value="1" />
+            <enum name="image" value="2" />
+        </attr>
+        <attr name="title_bar_right_src" format="reference|color"/>
+        <attr name="title_bar_right_text" format="string"/>
+        <attr name="title_bar_title_gravity" format="enum">
+            <enum name="start" value="0" />
+            <enum name="center" value="1" />
+            <enum name="end" value="2" />
+        </attr>
+    </declare-styleable>
+</resources>

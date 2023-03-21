@@ -20,6 +20,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //        titleBar = findViewById(R.id.title_bar);
+////        titleBar2.setBackgroundColor(Color.RED);
+//        titleBar.setShadow(20,Color.BLACK, TitleBar.ShadowType.GRADIENT);
     }
 
     public void onClick(View view) {

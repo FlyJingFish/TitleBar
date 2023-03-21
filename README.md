@@ -134,6 +134,18 @@ public class BaseActivity extends AppCompatActivity {
     <color name="title_bar_rightTextView_textColor">#000000</color>
 </resources>
 ```
+### 属性一览
+
+如果您在布局中使用可以使用以下属性，但不建议用这种方式（因为每个布局都要写一遍）
+
+| attr                    |  format   | description |
+|-------------------------|:---------:|:-----------:|
+| title_bar_title         |  string   |     标题      |
+| title_bar_back_src      | reference |   返回按钮资源图   |
+| title_bar_right_type    |   enum    |  右侧是文本还是图片  |
+| title_bar_right_src     | reference |   右侧按钮资源图   |
+| title_bar_right_text    |  string   |    右侧文本     |
+| title_bar_title_gravity |   enum    |    标题位置     |
 
 # 最后推荐我写的另一个库，轻松实现在应用内点击小图查看大图的动画放大效果
 

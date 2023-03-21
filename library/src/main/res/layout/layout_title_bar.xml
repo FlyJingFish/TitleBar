@@ -8,12 +8,13 @@
         android:id="@+id/iv_title_bar_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/iv_title_bar_status_bar"
+        android:layout_alignParentTop="true"
         android:layout_alignBottom="@+id/fl_title_bar_container"/>
     <ImageView
         android:id="@+id/iv_title_bar_status_bar"
         android:layout_width="match_parent"
-        android:layout_height="20dp"/>
+        android:layout_height="20dp"
+        android:visibility="gone"/>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fl_title_bar_container"
         android:layout_width="match_parent"

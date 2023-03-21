@@ -8,7 +8,14 @@
 <!--    <com.flyjingfish.titlebarlib.TitleBar-->
 <!--        android:id="@+id/title_bar"-->
 <!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"/>-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:title_bar_title="4444"-->
+<!--        app:title_bar_back_src="@mipmap/ic_launcher_round"-->
+<!--        app:title_bar_right_type="none"-->
+<!--        app:title_bar_right_text="3333"-->
+<!--        app:title_bar_title_gravity="center"-->
+<!--        app:title_bar_right_src="@mipmap/ic_launcher_round"-->
+<!--        android:background="@color/teal_700"/>-->
     <Button
         android:id="@+id/btn_1"
         android:layout_width="wrap_content"

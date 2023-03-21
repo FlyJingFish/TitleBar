@@ -2,9 +2,11 @@ package com.flyjingfish.titlebarlib;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +45,7 @@ public class TitleBar extends RelativeLayout {
     private static final TitleGravity DEFAULT_TITLE_GRAVITY = TitleGravity.CENTER;
     private TitleGravity titleGravity;
     private final ImageView backgroundView;
+    private Drawable pendingSetBackground;
 
     public enum ShadowType {
         LINE,
@@ -50,9 +53,47 @@ public class TitleBar extends RelativeLayout {
     }
 
     public enum TitleGravity {
-        CENTER,
-        START,
-        END
+        START(0),
+        CENTER(1),
+        END(2)
+        ;
+        final int type;
+
+        TitleGravity(int type) {
+            this.type = type;
+        }
+
+        public static TitleGravity getGravity(int gravity){
+            if (gravity == 1){
+                return CENTER;
+            }else if (gravity == 2){
+                return END;
+            }else {
+                return START;
+            }
+        }
+    }
+
+    public enum RightType {
+        NONE(0),
+        TEXT(1),
+        IMAGE(2);
+
+        final int type;
+
+        RightType(int type) {
+            this.type = type;
+        }
+
+        public static RightType getType(int type){
+            if (type == 1){
+                return TEXT;
+            }else if (type == 2){
+                return IMAGE;
+            }else {
+                return NONE;
+            }
+        }
     }
 
     public TitleBar(Context context) {
@@ -75,15 +116,35 @@ public class TitleBar extends RelativeLayout {
         shadowLine = rootView.findViewById(R.id.shadow_line);
         rightContainer = rootView.findViewById(R.id.right_container);
         leftContainer = rootView.findViewById(R.id.left_container);
-        int statusBarHeight = StatusBarHelper.getStatusbarHeight(context);
-        ViewGroup.LayoutParams layoutParams = titleBarStatusBar.getLayoutParams();
-        layoutParams.height = statusBarHeight;
-        titleBarStatusBar.setLayoutParams(layoutParams);
+
 
         leftContainer.setOnClickListener(v -> ((Activity) context).finish());
 
-        setTitleGravity(DEFAULT_TITLE_GRAVITY);
 
+        if (pendingSetBackground != null) {
+            setBackground(pendingSetBackground);
+        }
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TitleBar);
+        Drawable backDrawable = a.getDrawable(R.styleable.TitleBar_title_bar_back_src);
+
+        RightType rightType = RightType.getType(a.getInt(R.styleable.TitleBar_title_bar_right_type,0));
+        TitleGravity titleGravity = TitleGravity.getGravity(a.getInt(R.styleable.TitleBar_title_bar_title_gravity,DEFAULT_TITLE_GRAVITY.type));
+        setTitleGravity(titleGravity);
+        if (backDrawable != null){
+            backView.setImageDrawable(backDrawable);
+        }
+        CharSequence titleText = a.getText(R.styleable.TitleBar_title_bar_title);
+        titleView.setText(titleText);
+        if (rightType == RightType.TEXT){
+            CharSequence rightText = a.getText(R.styleable.TitleBar_title_bar_right_text);
+            getRightTextView().setText(rightText);
+        }else if (rightType == RightType.IMAGE){
+            Drawable rightDrawable = a.getDrawable(R.styleable.TitleBar_title_bar_right_src);
+            getRightImageView().setImageDrawable(rightDrawable);
+        }
+
+        a.recycle();
     }
 
     @Override
@@ -128,26 +189,32 @@ public class TitleBar extends RelativeLayout {
     }
 
     private void setTitleBarPaddings() {
-        ViewParent viewParent = getParent();
         if (!(getContext() instanceof Activity)) {
-            return;
-        }
-        View windowView = ((Activity) getContext()).getWindow().getDecorView();
-        if (viewParent != windowView) {
             return;
         }
 
         getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+                int statusBarHeight = StatusBarHelper.getStatusbarHeight(getContext());
+                ViewGroup.LayoutParams layoutParams = titleBarStatusBar.getLayoutParams();
+                layoutParams.height = statusBarHeight;
+                titleBarStatusBar.setLayoutParams(layoutParams);
+
+                ViewParent viewParent = getParent();
+                View windowView = ((Activity) getContext()).getWindow().getDecorView();
                 ViewGroup content = ((Activity) getContext()).findViewById(android.R.id.content);
                 int[] contentLat = new int[2];
                 content.getLocationOnScreen(contentLat);
-                int paddingTop = (int) (contentLat[1] == 0 ? TitleBar.this.getHeight() - shadowLine.getShadowMaxLength() : titleBarContainer.getHeight());
-                content.setPadding(0, aboveContent ? paddingTop : 0, 0, 0);
-
                 int leftMargin = contentLat[0];
-                TitleBar.this.setPadding(leftMargin, 0, leftMargin > 0 ? 0 : TitleBar.this.getWidth() - content.getWidth(), 0);
+                if (viewParent == windowView) {
+                    int paddingTop = (int) (contentLat[1] == 0 ? TitleBar.this.getHeight() - shadowLine.getShadowMaxLength() : titleBarContainer.getHeight());
+                    content.setPadding(0, aboveContent ? paddingTop : 0, 0, 0);
+                    titleBarStatusBar.setVisibility(VISIBLE);
+                    TitleBar.this.setPadding(leftMargin, 0, leftMargin > 0 ? 0 : TitleBar.this.getWidth() - content.getWidth(), 0);
+                }else {
+                    titleBarStatusBar.setVisibility(contentLat[1] == 0 ? VISIBLE : GONE);
+                }
 
                 getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
@@ -170,7 +237,7 @@ public class TitleBar extends RelativeLayout {
         List<View> removeViews = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             View view = rightContainer.getChildAt(i);
-            if (view.getId() == R.id.iv_right_view || view.getId() != R.id.tv_right_view){
+            if (view.getId() == R.id.iv_right_view || view.getId() != R.id.tv_right_view) {
                 removeViews.add(view);
             }
         }
@@ -195,7 +262,7 @@ public class TitleBar extends RelativeLayout {
         List<View> removeViews = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             View view = rightContainer.getChildAt(i);
-            if (view.getId() == R.id.tv_right_view || view.getId() != R.id.iv_right_view){
+            if (view.getId() == R.id.tv_right_view || view.getId() != R.id.iv_right_view) {
                 removeViews.add(view);
             }
         }
@@ -254,6 +321,10 @@ public class TitleBar extends RelativeLayout {
 
     @Override
     public void setBackground(Drawable background) {
+        if (backgroundView == null) {
+            pendingSetBackground = background;
+            return;
+        }
         setTitleBarBackgroundWithStatusBar(background);
     }
 
@@ -480,7 +551,6 @@ public class TitleBar extends RelativeLayout {
         } else {
             if (!isLayout) {
                 isSetTitleGravity = true;
-                return;
             }
             int margin = Math.max(leftContainer.getWidth(), rightContainer.getWidth());
             layoutParams.startToEnd = ConstraintLayout.LayoutParams.UNSET;
