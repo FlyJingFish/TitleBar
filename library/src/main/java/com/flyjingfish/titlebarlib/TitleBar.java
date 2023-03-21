@@ -164,6 +164,7 @@ public class TitleBar extends RelativeLayout {
         TextView rightTextView;
         if (rightContainer.getChildCount() == 0 || (rightTextView = rightContainer.findViewById(R.id.tv_right_view)) == null) {
             rightTextView = LayoutInflater.from(getContext()).inflate(R.layout.layout_title_bar_right_text_view, rightContainer, true).findViewById(R.id.tv_right_view);
+            isSetTitleGravity = true;
         }
         int count = rightContainer.getChildCount();
         List<View> removeViews = new ArrayList<>();
@@ -188,6 +189,7 @@ public class TitleBar extends RelativeLayout {
         ImageView rightImageView;
         if (rightContainer.getChildCount() == 0 || (rightImageView = rightContainer.findViewById(R.id.iv_right_view)) == null) {
             rightImageView = LayoutInflater.from(getContext()).inflate(R.layout.layout_title_bar_right_image_view, rightContainer, true).findViewById(R.id.iv_right_view);
+            isSetTitleGravity = true;
         }
         int count = rightContainer.getChildCount();
         List<View> removeViews = new ArrayList<>();
@@ -362,6 +364,7 @@ public class TitleBar extends RelativeLayout {
      * @param view 自定义View
      */
     public void setCustomRightView(View view, FrameLayout.LayoutParams layoutParams) {
+        isSetTitleGravity = true;
         rightContainer.setOnClickListener(null);
         rightContainer.setOnLongClickListener(null);
         rightContainer.removeAllViews();
@@ -388,6 +391,7 @@ public class TitleBar extends RelativeLayout {
      */
     public void setCustomLeftView(View view, FrameLayout.LayoutParams layoutParams) {
         backView = null;
+        isSetTitleGravity = true;
         leftContainer.setOnClickListener(null);
         leftContainer.setOnLongClickListener(null);
         leftContainer.removeAllViews();
