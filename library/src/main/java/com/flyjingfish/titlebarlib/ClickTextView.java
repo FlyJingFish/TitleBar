@@ -2,6 +2,7 @@ package com.flyjingfish.titlebarlib;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -24,8 +25,25 @@ public class ClickTextView extends AppCompatTextView {
     @Override
     public void setOnClickListener(@Nullable OnClickListener l) {
         ViewGroup parent;
-        if ((parent = (ViewGroup) getParent()) != null){
-            parent.setOnClickListener(l);
+        if ((parent = (ViewGroup) getParent()) != null) {
+            if (l == null) {
+                parent.setOnClickListener(null);
+                return;
+            }
+            parent.setOnClickListener(v -> l.onClick(ClickTextView.this));
         }
     }
+
+    @Override
+    public void setOnLongClickListener(@Nullable OnLongClickListener l) {
+        ViewGroup parent;
+        if ((parent = (ViewGroup) getParent()) != null) {
+            if (l == null) {
+                parent.setOnLongClickListener(null);
+                return;
+            }
+            parent.setOnLongClickListener(v -> l.onLongClick(ClickTextView.this));
+        }
+    }
+
 }

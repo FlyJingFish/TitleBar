@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity {
                 titleBar.setTitleGravity(TitleBar.TitleGravity.START);
                 titleBar.setTitleBarBackgroundColorWithStatusBar(Color.RED);
                 titleBar.getRightImageView().setVisibility(View.GONE);
-                titleBar.showShadow();
+                titleBar.setDisplayShadow(true);
                 titleBar.setAboveContent(false);
                 break;
             case R.id.btn_2:

@@ -2,6 +2,9 @@ package com.flyjingfish.titlebar;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,5 +40,11 @@ public class BaseActivity extends AppCompatActivity {
         titleBar.setTitle(getTitleString());
         titleBar.setAboveContent(titleAboveContent());
         titleBar.attachToWindow();
+        TextView textView = new TextView(this);
+        textView.setText("left");
+        TextView textView1 = new TextView(this);
+        textView1.setText("right");
+        titleBar.setCustomLeftView(textView,new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        titleBar.setCustomRightView(textView1,new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 }

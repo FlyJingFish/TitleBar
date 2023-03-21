@@ -17,17 +17,21 @@ import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class TitleBar extends RelativeLayout {
     private final ConstraintLayout titleBarContainer;
     private final ImageView titleBarStatusBar;
-    private final ImageView backView;
+    private ImageView backView;
     private final TextView titleView;
     private final FrameLayout customViewContainer;
     private final ShadowLine shadowLine;
@@ -76,7 +80,7 @@ public class TitleBar extends RelativeLayout {
         layoutParams.height = statusBarHeight;
         titleBarStatusBar.setLayoutParams(layoutParams);
 
-        backView.setOnClickListener(v -> ((Activity) context).finish());
+        leftContainer.setOnClickListener(v -> ((Activity) context).finish());
 
         setTitleGravity(DEFAULT_TITLE_GRAVITY);
 
@@ -123,13 +127,13 @@ public class TitleBar extends RelativeLayout {
 
     }
 
-    private void setTitleBarPaddings(){
+    private void setTitleBarPaddings() {
         ViewParent viewParent = getParent();
-        if (!(getContext() instanceof Activity)){
+        if (!(getContext() instanceof Activity)) {
             return;
         }
         View windowView = ((Activity) getContext()).getWindow().getDecorView();
-        if (viewParent != windowView){
+        if (viewParent != windowView) {
             return;
         }
 
@@ -140,7 +144,7 @@ public class TitleBar extends RelativeLayout {
                 int[] contentLat = new int[2];
                 content.getLocationOnScreen(contentLat);
                 int paddingTop = (int) (contentLat[1] == 0 ? TitleBar.this.getHeight() - shadowLine.getShadowMaxLength() : titleBarContainer.getHeight());
-                content.setPadding(0, aboveContent ?paddingTop:0, 0, 0);
+                content.setPadding(0, aboveContent ? paddingTop : 0, 0, 0);
 
                 int leftMargin = contentLat[0];
                 TitleBar.this.setPadding(leftMargin, 0, leftMargin > 0 ? 0 : TitleBar.this.getWidth() - content.getWidth(), 0);
@@ -153,6 +157,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 获取右侧 TextView
+     *
      * @return TextView
      */
     public TextView getRightTextView() {
@@ -160,12 +165,23 @@ public class TitleBar extends RelativeLayout {
         if (rightContainer.getChildCount() == 0 || (rightTextView = rightContainer.findViewById(R.id.tv_right_view)) == null) {
             rightTextView = LayoutInflater.from(getContext()).inflate(R.layout.layout_title_bar_right_text_view, rightContainer, true).findViewById(R.id.tv_right_view);
         }
-        rightContainer.removeView(rightContainer.findViewById(R.id.iv_right_view));
+        int count = rightContainer.getChildCount();
+        List<View> removeViews = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            View view = rightContainer.getChildAt(i);
+            if (view.getId() == R.id.iv_right_view || view.getId() != R.id.tv_right_view){
+                removeViews.add(view);
+            }
+        }
+        for (View removeView : removeViews) {
+            rightContainer.removeView(removeView);
+        }
         return rightTextView;
     }
 
     /**
      * 获取右侧 ImageView
+     *
      * @return ImageView
      */
     public ImageView getRightImageView() {
@@ -173,30 +189,46 @@ public class TitleBar extends RelativeLayout {
         if (rightContainer.getChildCount() == 0 || (rightImageView = rightContainer.findViewById(R.id.iv_right_view)) == null) {
             rightImageView = LayoutInflater.from(getContext()).inflate(R.layout.layout_title_bar_right_image_view, rightContainer, true).findViewById(R.id.iv_right_view);
         }
-        rightContainer.removeView(rightContainer.findViewById(R.id.tv_right_view));
+        int count = rightContainer.getChildCount();
+        List<View> removeViews = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            View view = rightContainer.getChildAt(i);
+            if (view.getId() == R.id.tv_right_view || view.getId() != R.id.iv_right_view){
+                removeViews.add(view);
+            }
+        }
+        for (View removeView : removeViews) {
+            rightContainer.removeView(removeView);
+        }
         return rightImageView;
     }
 
     /**
      * 获取返回 ImageView
+     *
      * @return ImageView
      */
+    @Nullable
     public ImageView getBackView() {
         return backView;
     }
+
     /**
      * 获取标题 TextView
+     *
      * @return TextView
      */
+    @NonNull
     public TextView getTitleView() {
         return titleView;
     }
 
     /**
      * 设置底部 Shadow 样式
+     *
      * @param shadowHeightDp shadow 高度
-     * @param shadowColor shadow 颜色
-     * @param shadowType shadow 样式 {@link ShadowType#LINE} 实线 / {@link ShadowType#GRADIENT} 渐变线
+     * @param shadowColor    shadow 颜色
+     * @param shadowType     shadow 样式 {@link ShadowType#LINE} 实线 / {@link ShadowType#GRADIENT} 渐变线
      */
     public void setShadow(float shadowHeightDp, @ColorInt int shadowColor, ShadowType shadowType) {
         int[] colors;
@@ -210,17 +242,12 @@ public class TitleBar extends RelativeLayout {
     }
 
     /**
-     * 隐藏 Shadow
+     * 设置是否展示 Shadow
+     *
+     * @param showShadow shadow 是否可见
      */
-    public void hideShadow() {
-        shadowLine.setVisibility(GONE);
-    }
-
-    /**
-     * 显示 Shadow
-     */
-    public void showShadow() {
-        shadowLine.setVisibility(VISIBLE);
+    public void setDisplayShadow(boolean showShadow) {
+        shadowLine.setVisibility(showShadow ? VISIBLE : GONE);
     }
 
     @Override
@@ -245,6 +272,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置标题栏背景 （包含了状态栏）
+     *
      * @param background 背景 Drawable
      */
     public void setTitleBarBackgroundWithStatusBar(Drawable background) {
@@ -253,6 +281,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置标题栏背景 （包含了状态栏）
+     *
      * @param resid 背景资源图
      */
     public void setTitleBarBackgroundResourceWithStatusBar(int resid) {
@@ -261,6 +290,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置标题栏背景 （包含了状态栏）
+     *
      * @param color 背景颜色
      */
     public void setTitleBarBackgroundColorWithStatusBar(int color) {
@@ -269,6 +299,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置标题栏背景 （不包含状态栏）
+     *
      * @param background 背景 Drawable
      */
     public void setTitleBarBackground(Drawable background) {
@@ -277,6 +308,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置标题栏背景 （不包含状态栏）
+     *
      * @param resid 背景资源图
      */
     public void setTitleBarBackgroundResource(int resid) {
@@ -285,6 +317,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置标题栏背景 （不包含状态栏）
+     *
      * @param color 背景颜色
      */
     public void setTitleBarBackgroundColor(int color) {
@@ -293,6 +326,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置自定义View
+     *
      * @param view 自定义View
      */
     public void setCustomView(View view) {
@@ -301,6 +335,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置自定义View
+     *
      * @param view 自定义View
      */
     public void setCustomView(View view, FrameLayout.LayoutParams layoutParams) {
@@ -314,6 +349,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置右侧自定义View
+     *
      * @param view 自定义View
      */
     public void setCustomRightView(View view) {
@@ -322,9 +358,12 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置右侧自定义View
+     *
      * @param view 自定义View
      */
     public void setCustomRightView(View view, FrameLayout.LayoutParams layoutParams) {
+        rightContainer.setOnClickListener(null);
+        rightContainer.setOnLongClickListener(null);
         rightContainer.removeAllViews();
         if (layoutParams != null) {
             rightContainer.addView(view, layoutParams);
@@ -335,16 +374,22 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置左侧自定义View
+     *
      * @param view 自定义View
      */
     public void setCustomLeftView(View view) {
         setCustomLeftView(view, null);
     }
+
     /**
      * 设置左侧自定义View
+     *
      * @param view 自定义View
      */
     public void setCustomLeftView(View view, FrameLayout.LayoutParams layoutParams) {
+        backView = null;
+        leftContainer.setOnClickListener(null);
+        leftContainer.setOnLongClickListener(null);
         leftContainer.removeAllViews();
         if (layoutParams != null) {
             leftContainer.addView(view, layoutParams);
@@ -354,7 +399,26 @@ public class TitleBar extends RelativeLayout {
     }
 
     /**
+     * 设置是否展示左侧View （通常是指 返回按钮）
+     *
+     * @param showLeftView 是否展示左侧 View
+     */
+    public void setDisplayLeftView(boolean showLeftView) {
+        leftContainer.setVisibility(showLeftView ? VISIBLE : GONE);
+    }
+
+    /**
+     * 设置是否展示右侧View
+     *
+     * @param showRightView 是否展示右侧 View
+     */
+    public void setDisplayRightView(boolean showRightView) {
+        rightContainer.setVisibility(showRightView ? VISIBLE : GONE);
+    }
+
+    /**
      * 设置标题
+     *
      * @param text 标题
      */
     public void setTitle(CharSequence text) {
@@ -362,8 +426,10 @@ public class TitleBar extends RelativeLayout {
             titleView.setText(text);
         }
     }
+
     /**
      * 设置标题
+     *
      * @param resid 标题id
      */
     public void setTitle(@StringRes int resid) {
@@ -371,8 +437,10 @@ public class TitleBar extends RelativeLayout {
             titleView.setText(resid);
         }
     }
+
     /**
      * 设置标题颜色
+     *
      * @param color 颜色
      */
     public void setTitleColor(@ColorInt int color) {
@@ -383,6 +451,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置标题位置
+     *
      * @param gravity 位置 {@link TitleGravity}
      */
     public void setTitleGravity(TitleGravity gravity) {
@@ -409,7 +478,7 @@ public class TitleBar extends RelativeLayout {
                 isSetTitleGravity = true;
                 return;
             }
-            int margin = Math.max(backView.getWidth(), rightContainer.getWidth());
+            int margin = Math.max(leftContainer.getWidth(), rightContainer.getWidth());
             layoutParams.startToEnd = ConstraintLayout.LayoutParams.UNSET;
             layoutParams.endToStart = ConstraintLayout.LayoutParams.UNSET;
             layoutParams.horizontalBias = .5f;
@@ -423,6 +492,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置返回点击监听
+     *
      * @param listener 监听器
      */
     public void setOnBackViewClickListener(OnClickListener listener) {
@@ -430,8 +500,10 @@ public class TitleBar extends RelativeLayout {
             leftContainer.setOnClickListener(listener);
         }
     }
+
     /**
      * 设置返回长按监听
+     *
      * @param listener 监听器
      */
     public void setOnBackViewLongClickListener(OnLongClickListener listener) {
@@ -442,6 +514,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置右侧点击监听
+     *
      * @param listener 监听器
      */
     public void setOnRightViewClickListener(OnClickListener listener) {
@@ -449,8 +522,10 @@ public class TitleBar extends RelativeLayout {
             rightContainer.setOnClickListener(listener);
         }
     }
+
     /**
      * 设置右侧长按监听
+     *
      * @param listener 监听器
      */
     public void setOnRightViewLongClickListener(OnLongClickListener listener) {
@@ -465,6 +540,7 @@ public class TitleBar extends RelativeLayout {
     public void hide() {
         setVisibility(GONE);
     }
+
     /**
      * 显示 titleBar
      */
@@ -478,10 +554,13 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * TitleBar 是否在内容上边
+     *
      * @param aboveContent true则TitleBar和布局成上下结构，false则TitleBar覆盖在布局上方
      */
     public void setAboveContent(boolean aboveContent) {
         this.aboveContent = aboveContent;
         setTitleBarPaddings();
     }
+
+
 }
