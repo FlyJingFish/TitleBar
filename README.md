@@ -73,6 +73,12 @@ public class BaseActivity extends AppCompatActivity {
 |--------------------------------------------|:-------------------------------------------------------------:|
 | attachToWindow                             |                        加入到页面 Window 层                         |
 | setAboveContent                            | TitleBar 是否在内容上边（true则TitleBar和布局成上下结构，false则TitleBar覆盖在布局上方） |
+| getTitleView                               |                         获取标题 TextView                         |
+| setTitle                                   |                             设置标题                              |
+| setTitleColor                              |                            设置标题颜色                             |
+| setTitleGravity                            |                          设置标题位置（左中右）                          |
+| setShadow                                  |                        设置底部 Shadow 样式                         |
+| setDisplayShadow                           |                          是否显示 Shadow                          |
 | setCustomView                              |                           设置自定义View                           |
 | getBackView                                |                       获取返回按钮 ImageView                        |
 | setCustomLeftView                          |                          设置左侧自定义View                          |
@@ -81,12 +87,6 @@ public class BaseActivity extends AppCompatActivity {
 | getRightImageView                          |                        获取右侧 ImageView                         |
 | setCustomRightView                         |                          设置右侧自定义View                          |
 | setDisplayRightView                        |                         设置是否显示右侧View                          |
-| getTitleView                               |                         获取标题 TextView                         |
-| setTitle                                   |                             设置标题                              |
-| setTitleColor                              |                            设置标题颜色                             |
-| setTitleGravity                            |                          设置标题位置（左中右）                          |
-| setShadow                                  |                        设置底部 Shadow 样式                         |
-| setDisplayShadow                           |                          是否显示 Shadow                          |
 | setTitleBarBackgroundWithStatusBar         |                         设置标题栏背景包含状态栏                          |
 | setTitleBarBackgroundResourceWithStatusBar |                         设置标题栏背景包含状态栏                          |
 | setTitleBarBackgroundColorWithStatusBar    |                         设置标题栏背景包含状态栏                          |
