@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="title_bar_minHeight">50dp</dimen>
+    <dimen name="title_bar_minHeight">48dp</dimen>
     <dimen name="title_bar_backView_width">20dp</dimen>
     <dimen name="title_bar_backView_height">20dp</dimen>
     <dimen name="title_bar_backView_marginStart">12dp</dimen>
     <dimen name="title_bar_backView_marginEnd">12dp</dimen>
     <dimen name="title_bar_rightImageview_width">20dp</dimen>
     <dimen name="title_bar_rightImageview_height">20dp</dimen>
-    <dimen name="title_bar_rightView_marginStart">15dp</dimen>
-    <dimen name="title_bar_rightView_marginEnd">15dp</dimen>
+    <dimen name="title_bar_rightView_marginStart">12dp</dimen>
+    <dimen name="title_bar_rightView_marginEnd">12dp</dimen>
     <dimen name="title_bar_title_textSize">16sp</dimen>
     <color name="title_bar_title_textColor">#000000</color>
     <dimen name="title_bar_rightTextView_textSize">16sp</dimen>
-    <color name="title_bar_rightTextView_textColor">#ff0000</color>
+    <color name="title_bar_rightTextView_textColor">#000000</color>
 
     <style name="title_bar_right_text_style">
         <item name="android:layout_width">wrap_content</item>

@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -324,6 +326,30 @@ public class TitleBar extends RelativeLayout {
         int margin = a.getDimensionPixelSize(R.styleable.TitleBar_Layout_android_layout_margin,-1);
         int marginHorizontal = a.getDimensionPixelSize(R.styleable.TitleBar_Layout_android_layout_marginHorizontal,margin);
         int marginVertical = a.getDimensionPixelSize(R.styleable.TitleBar_Layout_android_layout_marginVertical,margin);
+        if (view instanceof ImageView){
+            if (view.getId() == R.id.iv_title_bar_back){
+                Drawable drawable = a.getDrawable(R.styleable.TitleBar_Layout_android_src);
+                if (drawable != null){
+                    ((ImageView) view).setImageDrawable(drawable);
+                }else {
+                    ((ImageView) view).setImageResource(R.drawable.ic_title_bar_back);
+                }
+            }else if (view.getId() == R.id.iv_right_view){
+                Drawable drawable = a.getDrawable(R.styleable.TitleBar_Layout_android_src);
+                if (drawable != null){
+                    ((ImageView) view).setImageDrawable(drawable);
+                }else {
+                    ((ImageView) view).setImageResource(R.drawable.ic_title_bar_more);
+                }
+            }
+        }else if (view instanceof TextView){
+            if (view.getId() == R.id.tv_right_view){
+                float textSize = a.getDimension(R.styleable.TitleBar_Layout_android_textSize,getResources().getDimension(R.dimen.title_bar_rightTextView_textSize));
+                ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
+                int textColor = a.getColor(R.styleable.TitleBar_Layout_android_textColor,getResources().getColor(R.color.title_bar_rightTextView_textColor));
+                ((TextView) view).setTextColor(textColor);
+            }
+        }
         a.recycle();
         layoutParams.width = width;
         layoutParams.height = height;
@@ -365,6 +391,14 @@ public class TitleBar extends RelativeLayout {
         int margin = a.getDimensionPixelSize(R.styleable.TitleBar_Layout_android_layout_margin,-1);
         int marginHorizontal = a.getDimensionPixelSize(R.styleable.TitleBar_Layout_android_layout_marginHorizontal,margin);
         int marginVertical = a.getDimensionPixelSize(R.styleable.TitleBar_Layout_android_layout_marginVertical,margin);
+        if (view instanceof TextView){
+            if (view.getId() == R.id.tv_title_bar_title){
+                float textSize = a.getDimension(R.styleable.TitleBar_Layout_android_textSize,getResources().getDimension(R.dimen.title_bar_title_textSize));
+                ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
+                int textColor = a.getColor(R.styleable.TitleBar_Layout_android_textColor,getResources().getColor(R.color.title_bar_title_textColor));
+                ((TextView) view).setTextColor(textColor);
+            }
+        }
         a.recycle();
         layoutParams.width = width;
         layoutParams.height = height;
