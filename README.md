@@ -1,6 +1,4 @@
 # TitleBar
-## 标题栏 TitleBar 可实现全局设置，可以省掉在每个布局中添加，只需要在 BaseActivity 中添加即可 
-## 同样支持在布局中使用，可以在布局中定义各项参数并支持预览，从没有这么智能方便
 
 [![](https://jitpack.io/v/FlyJingFish/TitleBar.svg)](https://jitpack.io/#FlyJingFish/TitleBar)
 [![GitHub stars](https://img.shields.io/github/stars/FlyJingFish/TitleBar.svg)](https://github.com/FlyJingFish/TitleBar/stargazers)
@@ -8,6 +6,8 @@
 [![GitHub issues](https://img.shields.io/github/issues/FlyJingFish/TitleBar.svg)](https://github.com/FlyJingFish/TitleBar/issues)
 [![GitHub license](https://img.shields.io/github/license/FlyJingFish/TitleBar.svg)](https://github.com/FlyJingFish/TitleBar/blob/master/LICENSE)
 
+## 标题栏 TitleBar 可实现全局设置，可以省掉在每个布局中添加，只需要在 BaseActivity 中添加即可
+## 同样支持在布局中使用，可以在布局中定义各项参数并支持预览，从没有这么智能方便
 
 <img src="https://github.com/FlyJingFish/TitleBar/blob/master/screenshot/Screenshot_20230320_161148.jpg" width="360px" height="720px" alt="show" />
 
