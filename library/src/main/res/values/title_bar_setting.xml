@@ -12,5 +12,36 @@
     <dimen name="title_bar_title_textSize">16sp</dimen>
     <color name="title_bar_title_textColor">#000000</color>
     <dimen name="title_bar_rightTextView_textSize">16sp</dimen>
-    <color name="title_bar_rightTextView_textColor">#000000</color>
+    <color name="title_bar_rightTextView_textColor">#ff0000</color>
+
+    <style name="title_bar_right_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/title_bar_rightView_marginStart</item>
+        <item name="android:layout_marginEnd">@dimen/title_bar_rightView_marginEnd</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">@dimen/title_bar_rightTextView_textSize</item>
+        <item name="android:textColor">@color/title_bar_rightTextView_textColor</item>
+    </style>
+    <style name="title_bar_right_image_style">
+        <item name="android:layout_width">@dimen/title_bar_rightImageview_width</item>
+        <item name="android:layout_height">@dimen/title_bar_rightImageview_height</item>
+        <item name="android:layout_marginStart">@dimen/title_bar_rightView_marginStart</item>
+        <item name="android:layout_marginEnd">@dimen/title_bar_rightView_marginEnd</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:src">@drawable/ic_title_bar_more</item>
+    </style>
+    <style name="title_bar_back_style">
+        <item name="android:layout_width">@dimen/title_bar_backView_width</item>
+        <item name="android:layout_height">@dimen/title_bar_backView_height</item>
+        <item name="android:layout_marginStart">@dimen/title_bar_backView_marginStart</item>
+        <item name="android:layout_marginEnd">@dimen/title_bar_backView_marginEnd</item>
+        <item name="android:src">@drawable/ic_title_bar_back</item>
+    </style>
+    <style name="title_bar_title_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/title_bar_title_textSize</item>
+        <item name="android:textColor">@color/title_bar_title_textColor</item>
+    </style>
 </resources>

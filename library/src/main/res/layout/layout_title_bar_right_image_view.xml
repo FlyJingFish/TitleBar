@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    >
     <com.flyjingfish.titlebarlib.ClickImageView
         android:id="@+id/iv_right_view"
         android:layout_width="@dimen/title_bar_rightImageview_width"
         android:layout_height="@dimen/title_bar_rightImageview_height"
         android:layout_marginStart="@dimen/title_bar_rightView_marginStart"
         android:layout_marginEnd="@dimen/title_bar_rightView_marginEnd"
-        android:src="@drawable/ic_title_bar_more"
         android:layout_gravity="center"
         android:visibility="visible"/>
 </merge>

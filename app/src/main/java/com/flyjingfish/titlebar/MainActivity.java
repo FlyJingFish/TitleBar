@@ -19,9 +19,12 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        titleBar = findViewById(R.id.title_bar);
-////        titleBar2.setBackgroundColor(Color.RED);
-//        titleBar.setShadow(20,Color.BLACK, TitleBar.ShadowType.GRADIENT);
+        TitleBar titleBar2 = findViewById(R.id.title_bar);
+        View view = new View(this);
+        view.setBackgroundColor(Color.RED);
+//        titleBar2.setCustomView(view );
+//        titleBar2.setBackgroundColor(Color.RED);
+        titleBar.setShadow(20,Color.BLACK, TitleBar.ShadowType.GRADIENT);
     }
 
     public void onClick(View view) {

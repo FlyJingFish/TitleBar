@@ -5,22 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-<!--    <com.flyjingfish.titlebarlib.TitleBar-->
-<!--        android:id="@+id/title_bar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:title_bar_title="4444"-->
-<!--        app:title_bar_back_src="@mipmap/ic_launcher_round"-->
-<!--        app:title_bar_right_type="none"-->
-<!--        app:title_bar_right_text="3333"-->
-<!--        app:title_bar_title_gravity="center"-->
-<!--        app:title_bar_right_src="@mipmap/ic_launcher_round"-->
-<!--        android:background="@color/teal_700"/>-->
+    <com.flyjingfish.titlebarlib.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title_bar_right_textView_style="@style/right_text_style"
+        app:title_bar_title_style="@style/right_text_style"
+        app:title_bar_right_imageview_style="@style/right_image_style"
+        app:title_bar_back_view_style="@style/right_image_style"
+        app:title_bar_title="4444"
+        app:title_bar_back_src="@mipmap/ic_launcher_round"
+        app:title_bar_right_type="image"
+        app:title_bar_right_text="3333"
+        app:title_bar_title_gravity="center"
+        android:background="@color/teal_700"/>
     <Button
         android:id="@+id/btn_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginRight="90dp"
         android:onClick="onClick"
         android:text="btn1"/>
     <Button

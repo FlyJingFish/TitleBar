@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <com.flyjingfish.titlebarlib.ClickImageView
+        android:id="@+id/iv_title_bar_back"
+        android:layout_width="@dimen/title_bar_backView_width"
+        android:layout_height="@dimen/title_bar_backView_height"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/title_bar_backView_marginStart"
+        android:layout_marginEnd="@dimen/title_bar_backView_marginEnd"/>
+</merge>

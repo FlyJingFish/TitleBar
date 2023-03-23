@@ -138,14 +138,66 @@ public class BaseActivity extends AppCompatActivity {
 
 如果您在布局中使用可以使用以下属性，但不建议用这种方式（因为每个布局都要写一遍）
 
-| attr                    |  format   | description |
-|-------------------------|:---------:|:-----------:|
-| title_bar_title         |  string   |     标题      |
-| title_bar_back_src      | reference |   返回按钮资源图   |
-| title_bar_right_type    |   enum    |  右侧是文本还是图片  |
-| title_bar_right_src     | reference |   右侧按钮资源图   |
-| title_bar_right_text    |  string   |    右侧文本     |
-| title_bar_title_gravity |   enum    |    标题位置     |
+| attr                            |  format   | description |
+|---------------------------------|:---------:|:-----------:|
+| title_bar_title                 |  string   |     标题      |
+| title_bar_back_src              | reference |   返回按钮资源图   |
+| title_bar_right_type            |   enum    |  右侧是文本还是图片  |
+| title_bar_right_src             | reference |   右侧按钮资源图   |
+| title_bar_right_text            |  string   |    右侧文本     |
+| title_bar_title_gravity         |   enum    |    标题位置     |
+| title_bar_right_textView_style  | reference | 右侧文本样式style |
+| title_bar_right_imageview_style | reference | 右侧图片样式style |
+| title_bar_back_view_style       | reference | 返回图片样式style |
+| title_bar_title_style           | reference |  标题样式style  |
+
+**使用示例**
+
+定义右侧文本样式
+
+```xml
+ <style name="right_text_style" >
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginStart">4dp</item>
+    <item name="android:layout_marginEnd">4dp</item>
+    <item name="android:layout_gravity">center_horizontal|top</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textColor">@color/teal_200</item>
+    <item name="android:textStyle">bold|italic</item>
+</style>
+```
+
+定义右侧图片样式
+
+```xml
+<style name="right_image_style">
+    <item name="android:layout_width">60dp</item>
+    <item name="android:layout_height">30dp</item>
+    <item name="android:layout_marginEnd">30dp</item>
+    <item name="android:src">@drawable/ic_pay_suc_vip</item>
+    <item name="android:scaleType">centerCrop</item>
+</style>
+```
+
+布局中使用
+
+```xml
+<com.flyjingfish.titlebarlib.TitleBar
+    android:id="@+id/title_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:title_bar_right_textView_style="@style/right_text_style"
+    app:title_bar_right_imageview_style="@style/right_image_style"
+    app:title_bar_title_style="@style/title_style"
+    app:title_bar_back_view_style="@style/back_style"
+    app:title_bar_title="4444"
+    app:title_bar_back_src="@mipmap/ic_launcher_round"
+    app:title_bar_right_type="image"
+    app:title_bar_right_text="3333"
+    app:title_bar_title_gravity="center"
+    android:background="@color/teal_700"/>
+```
 
 # 最后推荐我写的另一个库，轻松实现在应用内点击小图查看大图的动画放大效果
 
