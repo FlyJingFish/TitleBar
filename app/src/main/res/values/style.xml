@@ -9,6 +9,7 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/teal_200</item>
         <item name="android:textStyle">bold|italic</item>
+        <item name="android:text">200</item>
     </style>
     <style name="right_image_style">
         <item name="android:layout_width">60dp</item>

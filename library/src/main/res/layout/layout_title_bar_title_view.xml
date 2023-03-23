@@ -11,6 +11,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/left_container"
         app:layout_constraintEnd_toStartOf="@id/right_container"
-        app:layout_constraintHorizontal_bias="0"
-        tools:text="sss"/>
+        app:layout_constraintHorizontal_bias="0"/>
 </merge>

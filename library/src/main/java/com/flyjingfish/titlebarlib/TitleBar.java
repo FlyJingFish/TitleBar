@@ -142,7 +142,9 @@ public class TitleBar extends RelativeLayout {
         setTitleGravity(titleGravity);
 
         CharSequence titleText = a.getText(R.styleable.TitleBar_title_bar_title);
-        titleView.setText(titleText);
+        if (titleText != null){
+            titleView.setText(titleText);
+        }
         rightTextStyle = a.getResourceId(R.styleable.TitleBar_title_bar_right_textView_style,R.style.title_bar_right_text_style);
         rightImageStyle = a.getResourceId(R.styleable.TitleBar_title_bar_right_imageview_style,R.style.title_bar_right_image_style);
         backStyle = a.getResourceId(R.styleable.TitleBar_title_bar_back_view_style,R.style.title_bar_back_style);
