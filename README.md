@@ -31,77 +31,9 @@
 ```
 ## 第三步，使用说明
 
-**设置示例**
+### 一、基础使用方法及属性说明
 
-```java
-public class BaseActivity extends AppCompatActivity {
-    protected TitleBar titleBar;
-
-    public boolean isShowTitleBar(){
-        return true;
-    }
-
-    public String getTitleString(){
-        return "";
-    }
-
-    public boolean titleAboveContent(){
-        return true;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        titleBar = new TitleBar(this);
-        titleBar.setShadow(4, Color.parseColor("#406200EE"), TitleBar.ShadowType.GRADIENT);
-        titleBar.setTitleGravity(TitleBar.TitleGravity.CENTER);
-        titleBar.setOnBackViewClickListener(v -> finish());
-        if (isShowTitleBar()){
-            titleBar.show();
-        }else {
-            titleBar.hide();
-        }
-        titleBar.setTitle(getTitleString());
-        titleBar.setAboveContent(titleAboveContent());
-        titleBar.attachToWindow();
-    }
-}
-```
-
-**方法说明**
-
-| 方法                                         |                             方法说明                              |
-|--------------------------------------------|:-------------------------------------------------------------:|
-| attachToWindow                             |                        加入到页面 Window 层                         |
-| setAboveContent                            | TitleBar 是否在内容上边（true则TitleBar和布局成上下结构，false则TitleBar覆盖在布局上方） |
-| getTitleView                               |                         获取标题 TextView                         |
-| setTitle                                   |                             设置标题                              |
-| setTitleColor                              |                            设置标题颜色                             |
-| setTitleGravity                            |                          设置标题位置（左中右）                          |
-| setShadow                                  |                        设置底部 Shadow 样式                         |
-| setDisplayShadow                           |                          是否显示 Shadow                          |
-| setCustomView                              |                           设置自定义View                           |
-| getBackView                                |                       获取返回按钮 ImageView                        |
-| setCustomLeftView                          |                          设置左侧自定义View                          |
-| setDisplayLeftView                         |                    设置是否显示左侧View（通常是指返回按钮）                     |
-| getRightTextView                           |                         获取右侧 TextView                         |
-| getRightImageView                          |                        获取右侧 ImageView                         |
-| setCustomRightView                         |                          设置右侧自定义View                          |
-| setDisplayRightView                        |                         设置是否显示右侧View                          |
-| setTitleBarBackgroundWithStatusBar         |                         设置标题栏背景包含状态栏                          |
-| setTitleBarBackgroundResourceWithStatusBar |                         设置标题栏背景包含状态栏                          |
-| setTitleBarBackgroundColorWithStatusBar    |                         设置标题栏背景包含状态栏                          |
-| setTitleBarBackground                      |                        设置标题栏背景 不 包含状态栏                        |
-| setTitleBarBackgroundResource              |                        设置标题栏背景 不 包含状态栏                        |
-| setTitleBarBackgroundColor                 |                        设置标题栏背景包 不 含状态栏                        |
-| setOnBackViewClickListener                 |                           设置返回点击监听                            |
-| setOnBackViewLongClickListener             |                           设置返回长按监听                            |
-| setOnRightViewClickListener                |                           设置右侧点击监听                            |
-| setOnRightViewLongClickListener            |                           设置右侧长按监听                            |
-| show                                       |                          显示 TitleBar                          |
-| hide                                       |                          隐藏 TitleBar                          |
-
-**全局设置**
+**1、全局设置**
 
 加入以下设置可实现全局设置
 
@@ -139,9 +71,41 @@ public class BaseActivity extends AppCompatActivity {
     <dimen name="title_bar_shadow_default_height">1dp</dimen>
 </resources>
 ```
-### 属性一览
 
-如果您在布局中使用可以使用以下属性，但不建议用这种方式（因为每个布局都要写一遍）
+**2、方法说明**
+
+| 方法                                         |                             方法说明                              |
+|--------------------------------------------|:-------------------------------------------------------------:|
+| attachToWindow                             |                        加入到页面 Window 层                         |
+| setAboveContent                            | TitleBar 是否在内容上边（true则TitleBar和布局成上下结构，false则TitleBar覆盖在布局上方） |
+| getTitleView                               |                         获取标题 TextView                         |
+| setTitle                                   |                             设置标题                              |
+| setTitleColor                              |                            设置标题颜色                             |
+| setTitleGravity                            |                          设置标题位置（左中右）                          |
+| setShadow                                  |                        设置底部 Shadow 样式                         |
+| setDisplayShadow                           |                          是否显示 Shadow                          |
+| setCustomView                              |                           设置自定义View                           |
+| getBackView                                |                       获取返回按钮 ImageView                        |
+| setCustomLeftView                          |                          设置左侧自定义View                          |
+| setDisplayLeftView                         |                    设置是否显示左侧View（通常是指返回按钮）                     |
+| getRightTextView                           |                         获取右侧 TextView                         |
+| getRightImageView                          |                        获取右侧 ImageView                         |
+| setCustomRightView                         |                          设置右侧自定义View                          |
+| setDisplayRightView                        |                         设置是否显示右侧View                          |
+| setTitleBarBackgroundWithStatusBar         |                         设置标题栏背景包含状态栏                          |
+| setTitleBarBackgroundResourceWithStatusBar |                         设置标题栏背景包含状态栏                          |
+| setTitleBarBackgroundColorWithStatusBar    |                         设置标题栏背景包含状态栏                          |
+| setTitleBarBackground                      |                        设置标题栏背景 不 包含状态栏                        |
+| setTitleBarBackgroundResource              |                        设置标题栏背景 不 包含状态栏                        |
+| setTitleBarBackgroundColor                 |                        设置标题栏背景包 不 含状态栏                        |
+| setOnBackViewClickListener                 |                           设置返回点击监听                            |
+| setOnBackViewLongClickListener             |                           设置返回长按监听                            |
+| setOnRightViewClickListener                |                           设置右侧点击监听                            |
+| setOnRightViewLongClickListener            |                           设置右侧长按监听                            |
+| show                                       |                          显示 TitleBar                          |
+| hide                                       |                          隐藏 TitleBar                          |
+
+**3、布局中属性一览**
 
 | attr                            |     format      | description  |
 |---------------------------------|:---------------:|:------------:|
@@ -159,7 +123,48 @@ public class BaseActivity extends AppCompatActivity {
 | title_bar_back_view_style       |    reference    | 返回图片样式style  |
 | title_bar_title_style           |    reference    |  标题样式style   |
 
-**使用示例**
+
+### 二、 使用示例
+
+**1、直接在基础Activity 中使用**
+
+```java
+public class BaseActivity extends AppCompatActivity {
+    protected TitleBar titleBar;
+
+    public boolean isShowTitleBar(){
+        return true;
+    }
+
+    public String getTitleString(){
+        return "";
+    }
+
+    public boolean titleAboveContent(){
+        return true;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        titleBar = new TitleBar(this);
+        titleBar.setShadow(4, Color.parseColor("#406200EE"), TitleBar.ShadowType.GRADIENT);
+        titleBar.setTitleGravity(TitleBar.TitleGravity.CENTER);
+        titleBar.setOnBackViewClickListener(v -> finish());
+        if (isShowTitleBar()){
+            titleBar.show();
+        }else {
+            titleBar.hide();
+        }
+        titleBar.setTitle(getTitleString());
+        titleBar.setAboveContent(titleAboveContent());
+        titleBar.attachToWindow();
+    }
+}
+```
+
+
+**2、在布局中使用**
 
 定义右侧文本样式
 
@@ -209,6 +214,7 @@ public class BaseActivity extends AppCompatActivity {
     app:title_bar_shadow_type="gradient"
     android:background="@color/teal_700"/>
 ```
+
 
 # 最后推荐我写的另一个库，轻松实现在应用内点击小图查看大图的动画放大效果
 
