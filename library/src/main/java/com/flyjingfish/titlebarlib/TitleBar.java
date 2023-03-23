@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.util.AttributeSet;
@@ -19,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -53,8 +55,25 @@ public class TitleBar extends RelativeLayout {
     private final int backStyle;
 
     public enum ShadowType {
-        LINE,
-        GRADIENT
+        NONE(0),
+        LINE(1),
+        GRADIENT(2);
+
+        final int type;
+
+        ShadowType(int type) {
+            this.type = type;
+        }
+
+        public static ShadowType getType(int type){
+            if (type == 1){
+                return LINE;
+            }else if (type == 2){
+                return GRADIENT;
+            }else {
+                return NONE;
+            }
+        }
     }
 
     public enum TitleGravity {
@@ -137,9 +156,16 @@ public class TitleBar extends RelativeLayout {
             setBackground(pendingSetBackground);
         }
 
+        ShadowType shadowType = ShadowType.getType(a.getInt(R.styleable.TitleBar_title_bar_shadow_type,ShadowType.NONE.type));
+        Drawable shadowColor = a.getDrawable(R.styleable.TitleBar_title_bar_shadow);
+        float shadowHeight = a.getDimension(R.styleable.TitleBar_title_bar_shadow_height,getResources().getDimension(R.dimen.title_bar_shadow_default_height));
+        if (shadowColor instanceof ColorDrawable){
+            setShadowPixel(shadowHeight, ((ColorDrawable) shadowColor).getColor(),shadowType);
+        }else {
+            setShadowPixel(shadowHeight,shadowColor,shadowType);
+        }
 
-
-        RightType rightType = RightType.getType(a.getInt(R.styleable.TitleBar_title_bar_right_type,0));
+        RightType rightType = RightType.getType(a.getInt(R.styleable.TitleBar_title_bar_right_type,RightType.NONE.type));
         TitleGravity titleGravity = TitleGravity.getGravity(a.getInt(R.styleable.TitleBar_title_bar_title_gravity,DEFAULT_TITLE_GRAVITY.type));
         setTitleGravity(titleGravity);
 
@@ -453,6 +479,29 @@ public class TitleBar extends RelativeLayout {
      * @param shadowType     shadow 样式 {@link ShadowType#LINE} 实线 / {@link ShadowType#GRADIENT} 渐变线
      */
     public void setShadow(float shadowHeightDp, @ColorInt int shadowColor, ShadowType shadowType) {
+        setShadowPixel(ScreenUtils.dp2px(getContext(), shadowHeightDp),shadowColor,shadowType);
+    }
+
+    /**
+     * 设置底部 Shadow 样式
+     *
+     * @param shadowHeightDp shadow 高度
+     * @param shadowDrawable   资源图
+     */
+    public void setShadow(float shadowHeightDp, Drawable shadowDrawable) {
+        setShadowPixel(ScreenUtils.dp2px(getContext(), shadowHeightDp),shadowDrawable,ShadowType.LINE);
+    }
+
+    /**
+     *
+     * @param shadowHeightDp shadow 高度
+     * @param shadowDrawableRes 资源图id
+     */
+    public void setShadow(float shadowHeightDp, @DrawableRes int shadowDrawableRes) {
+        setShadowPixel(ScreenUtils.dp2px(getContext(), shadowHeightDp),getResources().getDrawable(shadowDrawableRes),ShadowType.LINE);
+    }
+
+    private void setShadowPixel(float shadowHeightPx, @ColorInt int shadowColor, ShadowType shadowType) {
         int[] colors;
         if (shadowType == ShadowType.GRADIENT) {
             colors = new int[]{shadowColor, Color.TRANSPARENT};
@@ -460,7 +509,15 @@ public class TitleBar extends RelativeLayout {
             colors = new int[]{shadowColor, shadowColor};
         }
         shadowLine.setGradientColors(colors);
-        shadowLine.setShadowMaxLength(ScreenUtils.dp2px(getContext(), shadowHeightDp));
+        shadowLine.setShadowMaxLength(shadowHeightPx);
+        setDisplayShadow(shadowType != ShadowType.NONE);
+    }
+
+    private void setShadowPixel(float shadowHeightPx, Drawable shadowDrawable, ShadowType shadowType) {
+        shadowLine.setGradientColors(null);
+        shadowLine.setBackground(shadowDrawable);
+        shadowLine.setShadowMaxLength(shadowHeightPx);
+        setDisplayShadow(shadowType != ShadowType.NONE);
     }
 
     /**

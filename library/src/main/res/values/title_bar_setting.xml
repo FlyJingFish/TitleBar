@@ -13,6 +13,8 @@
     <color name="title_bar_title_textColor">#000000</color>
     <dimen name="title_bar_rightTextView_textSize">16sp</dimen>
     <color name="title_bar_rightTextView_textColor">#000000</color>
+    <color name="title_bar_shadow_default_color">#4d000000</color>
+    <dimen name="title_bar_shadow_default_height">1dp</dimen>
 
     <style name="title_bar_right_text_style">
         <item name="android:layout_width">wrap_content</item>

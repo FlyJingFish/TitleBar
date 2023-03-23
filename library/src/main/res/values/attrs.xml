@@ -15,7 +15,13 @@
             <enum name="center" value="1" />
             <enum name="end" value="2" />
         </attr>
-
+        <attr name="title_bar_shadow_type" format="enum">
+            <enum name="none" value="0" />
+            <enum name="line" value="1" />
+            <enum name="gradient" value="2" />
+        </attr>
+        <attr name="title_bar_shadow" format="reference|color" />
+        <attr name="title_bar_shadow_height" format="dimension" />
         <attr name="title_bar_right_textView_style" format="reference" />
         <attr name="title_bar_right_imageview_style" format="reference" />
         <attr name="title_bar_back_view_style" format="reference" />

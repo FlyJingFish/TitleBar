@@ -50,6 +50,7 @@ public class ShadowLine extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         if (gradientColors == null || shadowMaxLength <= 0){
+            drawBackground(canvas);
             super.onDraw(canvas);
             return;
         }
@@ -120,7 +121,7 @@ public class ShadowLine extends View {
             return;
         }
 
-        background.setBounds(0, 0, getRight() - getLeft(), (int) (getBottom()- shadowMaxLength - getTop()));
+        background.setBounds(0, 0, getRight() - getLeft(), (int) (shadowMaxLength));
 
         background.draw(canvas);
     }

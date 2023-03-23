@@ -133,24 +133,31 @@ public class BaseActivity extends AppCompatActivity {
     <dimen name="title_bar_rightTextView_textSize">16sp</dimen>
     <!-- 右侧TextView 字体颜色 -->
     <color name="title_bar_rightTextView_textColor">#000000</color>
+    <!-- shadow 颜色 -->
+    <color name="title_bar_shadow_default_color">#4d000000</color>
+    <!-- shadow 高度 -->
+    <dimen name="title_bar_shadow_default_height">1dp</dimen>
 </resources>
 ```
 ### 属性一览
 
 如果您在布局中使用可以使用以下属性，但不建议用这种方式（因为每个布局都要写一遍）
 
-| attr                            |  format   | description |
-|---------------------------------|:---------:|:-----------:|
-| title_bar_title                 |  string   |     标题      |
-| title_bar_back_src              | reference |   返回按钮资源图   |
-| title_bar_right_type            |   enum    |  右侧是文本还是图片  |
-| title_bar_right_src             | reference |   右侧按钮资源图   |
-| title_bar_right_text            |  string   |    右侧文本     |
-| title_bar_title_gravity         |   enum    |    标题位置     |
-| title_bar_right_textView_style  | reference | 右侧文本样式style |
-| title_bar_right_imageview_style | reference | 右侧图片样式style |
-| title_bar_back_view_style       | reference | 返回图片样式style |
-| title_bar_title_style           | reference |  标题样式style  |
+| attr                            |     format      | description  |
+|---------------------------------|:---------------:|:------------:|
+| title_bar_title                 |     string      |      标题      |
+| title_bar_back_src              |    reference    |   返回按钮资源图    |
+| title_bar_right_type            |      enum       |  右侧是文本还是图片   |
+| title_bar_right_src             |    reference    |   右侧按钮资源图    |
+| title_bar_right_text            |     string      |     右侧文本     |
+| title_bar_title_gravity         |      enum       |     标题位置     |
+| title_bar_shadow_type           |      enum       |   shadow类型   |
+| title_bar_shadow                | reference/color | shadow颜色或资源图 |
+| title_bar_shadow_height         |    dimension    |   shadow高度   |
+| title_bar_right_textView_style  |    reference    | 右侧文本样式style  |
+| title_bar_right_imageview_style |    reference    | 右侧图片样式style  |
+| title_bar_back_view_style       |    reference    | 返回图片样式style  |
+| title_bar_title_style           |    reference    |  标题样式style   |
 
 **使用示例**
 
@@ -189,14 +196,17 @@ public class BaseActivity extends AppCompatActivity {
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:title_bar_right_textView_style="@style/right_text_style"
-    app:title_bar_right_imageview_style="@style/right_image_style"
     app:title_bar_title_style="@style/title_style"
+    app:title_bar_right_imageview_style="@style/right_image_style"
     app:title_bar_back_view_style="@style/back_style"
     app:title_bar_title="4444"
     app:title_bar_back_src="@mipmap/ic_launcher_round"
     app:title_bar_right_type="image"
     app:title_bar_right_text="3333"
     app:title_bar_title_gravity="center"
+    app:title_bar_shadow_height="4dp"
+    app:title_bar_shadow="@color/purple_700"
+    app:title_bar_shadow_type="gradient"
     android:background="@color/teal_700"/>
 ```
 
