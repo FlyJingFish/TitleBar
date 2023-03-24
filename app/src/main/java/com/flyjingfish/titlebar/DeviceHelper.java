@@ -1,4 +1,4 @@
-package com.flyjingfish.titlebarlib;
+package com.flyjingfish.titlebar;
 
 
 import android.os.Build;

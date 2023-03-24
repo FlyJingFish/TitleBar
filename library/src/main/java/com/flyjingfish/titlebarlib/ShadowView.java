@@ -12,22 +12,22 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
-public class ShadowLine extends View {
+public class ShadowView extends View {
 
     private final Paint mBgPaint;
     private int[] gradientColors;
     private float[] gradientPositions;
     private float shadowMaxLength;
 
-    public ShadowLine(Context context) {
+    public ShadowView(Context context) {
         this(context,null);
     }
 
-    public ShadowLine(Context context, @Nullable AttributeSet attrs) {
+    public ShadowView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs,0);
     }
 
-    public ShadowLine(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ShadowView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         mBgPaint = new Paint();

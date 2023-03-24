@@ -193,6 +193,8 @@ public class BaseActivity extends AppCompatActivity {
 </style>
 ```
 
+[更多style配置详看这里](https://github.com/FlyJingFish/TitleBar/blob/master/app/src/main/res/values/style.xml)
+
 布局中使用
 
 ```xml

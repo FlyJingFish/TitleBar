@@ -1,4 +1,4 @@
-package com.flyjingfish.titlebarlib;
+package com.flyjingfish.titlebar;
 
 abstract class OnceReadValue<P, T> {
 

@@ -8,7 +8,7 @@
     <com.flyjingfish.titlebarlib.TitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         app:title_bar_right_textView_style="@style/right_text_style"
         app:title_bar_title_style="@style/title_style"
         app:title_bar_right_imageview_style="@style/right_image_style"

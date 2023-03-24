@@ -27,7 +27,6 @@
         <attr name="title_bar_back_view_style" format="reference" />
         <attr name="title_bar_title_style" format="reference" />
         <attr name="android:minHeight" format="dimension"  />
-        <attr name="android:layout_height" format="dimension" />
     </declare-styleable>
     <declare-styleable name="TitleBar_Layout">
         <attr name="android:layout_width" format="dimension"  />

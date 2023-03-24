@@ -7,7 +7,6 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -41,7 +40,7 @@ public class TitleBar extends RelativeLayout {
     private ImageView backView;
     private final TextView titleView;
     private final FrameLayout customViewContainer;
-    private final ShadowLine shadowLine;
+    private final ShadowView shadowView;
     private final FrameLayout rightContainer;
     private final FrameLayout leftContainer;
     private boolean aboveContent = true;
@@ -140,11 +139,9 @@ public class TitleBar extends RelativeLayout {
         titleView = LayoutInflater.from(new ContextThemeWrapper(getContext(), titleStyle)).inflate(R.layout.layout_title_bar_title_view, titleBarContainer, true).findViewById(R.id.tv_title_bar_title);
         setTitleViewParams(titleView, titleStyle);
         customViewContainer = rootView.findViewById(R.id.fl_custom_view);
-        shadowLine = rootView.findViewById(R.id.shadow_line);
+        shadowView = rootView.findViewById(R.id.shadow_line);
         rightContainer = rootView.findViewById(R.id.right_container);
         leftContainer = rootView.findViewById(R.id.left_container);
-//        titleBarContainer.removeView(customViewContainer);
-//        titleBarContainer.addView(customViewContainer);
 
 
         leftContainer.setOnClickListener(v -> ((Activity) context).finish());
@@ -155,12 +152,6 @@ public class TitleBar extends RelativeLayout {
 
         if (pendingSetBackground != null) {
             setBackground(pendingSetBackground);
-        }
-        int containerHeight = a.getLayoutDimension(R.styleable.TitleBar_android_layout_height,ViewGroup.LayoutParams.WRAP_CONTENT);
-        if (containerHeight != ViewGroup.LayoutParams.WRAP_CONTENT){
-            ViewGroup.LayoutParams containerLayoutParams = titleBarContainer.getLayoutParams();
-            containerLayoutParams.height = containerHeight;
-            titleBarContainer.setLayoutParams(containerLayoutParams);
         }
         int minHeight = a.getDimensionPixelOffset(R.styleable.TitleBar_android_minHeight,getResources().getDimensionPixelOffset(R.dimen.title_bar_minHeight));
         setMinimumHeight(0);
@@ -270,7 +261,7 @@ public class TitleBar extends RelativeLayout {
                 int leftMargin = contentLat[0];
                 int oldVisibility = titleBarStatusBar.getVisibility();
                 if (viewParent == windowView) {
-                    int paddingTop = (int) (contentLat[1] == 0 ? TitleBar.this.getHeight() - shadowLine.getShadowMaxLength() : titleBarContainer.getHeight());
+                    int paddingTop = (int) (contentLat[1] == 0 ? TitleBar.this.getHeight() - shadowView.getShadowMaxLength() : titleBarContainer.getHeight());
                     content.setPadding(0, aboveContent ? paddingTop : 0, 0, 0);
                     if (oldVisibility != VISIBLE){
                         titleBarStatusBar.setVisibility(VISIBLE);
@@ -520,15 +511,15 @@ public class TitleBar extends RelativeLayout {
         } else {
             colors = new int[]{shadowColor, shadowColor};
         }
-        shadowLine.setGradientColors(colors);
-        shadowLine.setShadowMaxLength(shadowHeightPx);
+        shadowView.setGradientColors(colors);
+        shadowView.setShadowMaxLength(shadowHeightPx);
         setDisplayShadow(shadowType != ShadowType.NONE);
     }
 
     private void setShadowPixel(float shadowHeightPx, Drawable shadowDrawable, ShadowType shadowType) {
-        shadowLine.setGradientColors(null);
-        shadowLine.setBackground(shadowDrawable);
-        shadowLine.setShadowMaxLength(shadowHeightPx);
+        shadowView.setGradientColors(null);
+        shadowView.setBackground(shadowDrawable);
+        shadowView.setShadowMaxLength(shadowHeightPx);
         setDisplayShadow(shadowType != ShadowType.NONE);
     }
 
@@ -538,7 +529,7 @@ public class TitleBar extends RelativeLayout {
      * @param showShadow shadow 是否可见
      */
     public void setDisplayShadow(boolean showShadow) {
-        shadowLine.setVisibility(showShadow ? VISIBLE : GONE);
+        shadowView.setVisibility(showShadow ? VISIBLE : GONE);
     }
 
     @Override
@@ -860,58 +851,13 @@ public class TitleBar extends RelativeLayout {
 
     @Override
     public void setLayoutParams(ViewGroup.LayoutParams params) {
+        if (titleBarContainer != null){
+            ViewGroup.LayoutParams layoutParams = titleBarContainer.getLayoutParams();
+            layoutParams.width = params.width;
+            layoutParams.height = params.height;
+            titleBarContainer.setLayoutParams(layoutParams);
+        }
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         super.setLayoutParams(params);
-    }
-
-    @Override
-    public LayoutParams generateLayoutParams(AttributeSet attrs) {
-        LayoutParams layoutParams = new LayoutParams(getContext(), attrs);
-        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        return layoutParams;
-    }
-
-    @Override
-    protected LayoutParams generateDefaultLayoutParams() {
-        return new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-    }
-
-    @Override
-    protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
-        return p instanceof LayoutParams;
-    }
-
-    @Override
-    protected ViewGroup.LayoutParams generateLayoutParams(ViewGroup.LayoutParams lp) {
-        if (lp != null){
-            lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        }
-        if (lp instanceof LayoutParams) {
-            return new LayoutParams((LayoutParams) lp);
-        } else {
-            return new LayoutParams(lp);
-        }
-    }
-    public static class LayoutParams extends RelativeLayout.LayoutParams {
-
-        public LayoutParams(Context c, AttributeSet attrs) {
-            super(c, attrs);
-            height = WRAP_CONTENT;
-        }
-
-        public LayoutParams(int width, int height) {
-            super(width, WRAP_CONTENT);
-        }
-
-        public LayoutParams(ViewGroup.LayoutParams source) {
-            super(source);
-            height = WRAP_CONTENT;
-        }
-
-        public LayoutParams(LayoutParams source) {
-            super(source);
-            height = WRAP_CONTENT;
-        }
-
     }
 }

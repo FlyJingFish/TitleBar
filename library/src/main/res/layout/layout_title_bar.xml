@@ -55,7 +55,7 @@
             app:layout_constraintEnd_toStartOf="@+id/right_container">
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <com.flyjingfish.titlebarlib.ShadowLine
+    <com.flyjingfish.titlebarlib.ShadowView
         android:id="@+id/shadow_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

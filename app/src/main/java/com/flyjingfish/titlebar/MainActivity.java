@@ -3,12 +3,14 @@ package com.flyjingfish.titlebar;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.flyjingfish.titlebarlib.StatusBarHelper;
 import com.flyjingfish.titlebarlib.TitleBar;
 
 public class MainActivity extends BaseActivity {
+
+    private TitleBar titleBar2;
 
     @Override
     public String getTitleString() {
@@ -19,7 +21,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TitleBar titleBar2 = findViewById(R.id.title_bar);
+        titleBar2 = findViewById(R.id.title_bar);
         View view = new View(this);
         view.setBackgroundColor(Color.RED);
 //        titleBar2.setCustomView(view );
@@ -37,6 +39,7 @@ public class MainActivity extends BaseActivity {
                 titleBar.getRightImageView().setVisibility(View.GONE);
                 titleBar.setDisplayShadow(true);
                 titleBar.setAboveContent(false);
+
                 break;
             case R.id.btn_2:
                 titleBar.setTitleGravity(TitleBar.TitleGravity.CENTER);
@@ -51,6 +54,10 @@ public class MainActivity extends BaseActivity {
                 titleBar.setTitleGravity(TitleBar.TitleGravity.END);
                 titleBar.getRightTextView().setText("11111");
                 titleBar.getRightTextView().setTextColor(Color.BLUE);
+
+                ViewGroup.LayoutParams layoutParams = titleBar2.getLayoutParams();
+                layoutParams.height = (int) ScreenUtils.dp2px(this,30);
+                titleBar2.setLayoutParams(layoutParams);
                 break;
         }
     }
