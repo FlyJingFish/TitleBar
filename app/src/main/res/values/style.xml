@@ -3,23 +3,24 @@
     <style name="right_text_style" >
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">4dp</item>
-        <item name="android:layout_marginEnd">40dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/teal_200</item>
         <item name="android:textStyle">bold|italic</item>
         <item name="android:text">200</item>
     </style>
     <style name="right_image_style">
-        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_width">30dp</item>
         <item name="android:layout_height">30dp</item>
-        <item name="android:layout_marginEnd">30dp</item>
-<!--        <item name="android:background">@color/purple_200</item>-->
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
         <item name="android:src">@drawable/ic_pay_suc_vip</item>
         <item name="android:scaleType">centerCrop</item>
-<!--        <item name="android:layout_gravity">center_horizontal|top</item>-->
     </style>
     <style name="back_style">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">10dp</item>
         <item name="android:scaleType">centerCrop</item>
@@ -30,9 +31,25 @@
         <item name="android:layout_marginStart">4dp</item>
         <item name="android:layout_marginEnd">4dp</item>
         <item name="android:layout_gravity">center_horizontal|top</item>
-<!--        <item name="android:textSize">20sp</item>-->
-<!--        <item name="android:textColor">@color/teal_200</item>-->
-<!--        <item name="android:textStyle">bold|italic</item>-->
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/purple_700</item>
+        <item name="android:textStyle">bold|italic</item>
         <item name="android:text">200</item>
     </style>
+
+    <dimen name="title_bar_minHeight">80dp</dimen>
+    <dimen name="title_bar_backView_width">40dp</dimen>
+    <dimen name="title_bar_backView_height">40dp</dimen>
+    <dimen name="title_bar_backView_marginStart">20dp</dimen>
+    <dimen name="title_bar_backView_marginEnd">20dp</dimen>
+    <dimen name="title_bar_rightImageview_width">40dp</dimen>
+    <dimen name="title_bar_rightImageview_height">40dp</dimen>
+    <dimen name="title_bar_rightView_marginStart">20dp</dimen>
+    <dimen name="title_bar_rightView_marginEnd">20dp</dimen>
+    <dimen name="title_bar_title_textSize">30sp</dimen>
+    <color name="title_bar_title_textColor">#ff0000</color>
+    <dimen name="title_bar_rightTextView_textSize">30sp</dimen>
+    <color name="title_bar_rightTextView_textColor">#ff0000</color>
+    <color name="title_bar_shadow_default_color">#4d000000</color>
+    <dimen name="title_bar_shadow_default_height">10dp</dimen>
 </resources>
