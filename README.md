@@ -104,6 +104,8 @@
 | setOnRightViewLongClickListener            |                           设置右侧长按监听                            |
 | show                                       |                          显示 TitleBar                          |
 | hide                                       |                          隐藏 TitleBar                          |
+| getTitleBarLayoutParams                    |        如果需要用到 getLayoutParams 方法，建议改用这个，详细说明可看代码中的方法说明        |
+| setTitleBarLayoutParams                    |        如果需要用到 setLayoutParams 方法，建议改用这个，详细说明可看代码中的方法说明        |
 
 **3、布局中属性一览**
 

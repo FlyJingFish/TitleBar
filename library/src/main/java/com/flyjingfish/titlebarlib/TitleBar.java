@@ -7,7 +7,9 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,12 +67,12 @@ public class TitleBar extends RelativeLayout {
             this.type = type;
         }
 
-        public static ShadowType getType(int type){
-            if (type == 1){
+        public static ShadowType getType(int type) {
+            if (type == 1) {
                 return LINE;
-            }else if (type == 2){
+            } else if (type == 2) {
                 return GRADIENT;
-            }else {
+            } else {
                 return NONE;
             }
         }
@@ -79,20 +81,19 @@ public class TitleBar extends RelativeLayout {
     public enum TitleGravity {
         START(0),
         CENTER(1),
-        END(2)
-        ;
+        END(2);
         final int type;
 
         TitleGravity(int type) {
             this.type = type;
         }
 
-        public static TitleGravity getGravity(int gravity){
-            if (gravity == 1){
+        public static TitleGravity getGravity(int gravity) {
+            if (gravity == 1) {
                 return CENTER;
-            }else if (gravity == 2){
+            } else if (gravity == 2) {
                 return END;
-            }else {
+            } else {
                 return START;
             }
         }
@@ -109,12 +110,12 @@ public class TitleBar extends RelativeLayout {
             this.type = type;
         }
 
-        public static RightType getType(int type){
-            if (type == 1){
+        public static RightType getType(int type) {
+            if (type == 1) {
                 return TEXT;
-            }else if (type == 2){
+            } else if (type == 2) {
                 return IMAGE;
-            }else {
+            } else {
                 return NONE;
             }
         }
@@ -135,7 +136,7 @@ public class TitleBar extends RelativeLayout {
         backgroundView = rootView.findViewById(R.id.iv_title_bar_bg);
         titleBarContainer = rootView.findViewById(R.id.fl_title_bar_container);
         titleBarStatusBar = rootView.findViewById(R.id.iv_title_bar_status_bar);
-        int titleStyle = a.getResourceId(R.styleable.TitleBar_title_bar_title_style,R.style.title_bar_title_style);
+        int titleStyle = a.getResourceId(R.styleable.TitleBar_title_bar_title_style, R.style.title_bar_title_style);
         titleView = LayoutInflater.from(new ContextThemeWrapper(getContext(), titleStyle)).inflate(R.layout.layout_title_bar_title_view, titleBarContainer, true).findViewById(R.id.tv_title_bar_title);
         setTitleViewParams(titleView, titleStyle);
         customViewContainer = rootView.findViewById(R.id.fl_custom_view);
@@ -153,50 +154,50 @@ public class TitleBar extends RelativeLayout {
         if (pendingSetBackground != null) {
             setBackground(pendingSetBackground);
         }
-        int minHeight = a.getDimensionPixelOffset(R.styleable.TitleBar_android_minHeight,getResources().getDimensionPixelOffset(R.dimen.title_bar_minHeight));
+        int minHeight = a.getDimensionPixelOffset(R.styleable.TitleBar_android_minHeight, getResources().getDimensionPixelOffset(R.dimen.title_bar_minHeight));
         setMinimumHeight(0);
         titleBarContainer.setMinHeight(minHeight);
 
-        ShadowType shadowType = ShadowType.getType(a.getInt(R.styleable.TitleBar_title_bar_shadow_type,ShadowType.NONE.type));
+        ShadowType shadowType = ShadowType.getType(a.getInt(R.styleable.TitleBar_title_bar_shadow_type, ShadowType.NONE.type));
         Drawable shadowColor = a.getDrawable(R.styleable.TitleBar_title_bar_shadow);
-        float shadowHeight = a.getDimension(R.styleable.TitleBar_title_bar_shadow_height,getResources().getDimension(R.dimen.title_bar_shadow_default_height));
-        if (shadowColor instanceof ColorDrawable){
-            setShadowPixel(shadowHeight, ((ColorDrawable) shadowColor).getColor(),shadowType);
-        }else if (shadowColor == null && shadowType != ShadowType.NONE){
-            setShadowPixel(shadowHeight,getResources().getColor(R.color.title_bar_shadow_default_color),shadowType);
-        }else {
-            setShadowPixel(shadowHeight,shadowColor,shadowType);
+        float shadowHeight = a.getDimension(R.styleable.TitleBar_title_bar_shadow_height, getResources().getDimension(R.dimen.title_bar_shadow_default_height));
+        if (shadowColor instanceof ColorDrawable) {
+            setShadowPixel(shadowHeight, ((ColorDrawable) shadowColor).getColor(), shadowType);
+        } else if (shadowColor == null && shadowType != ShadowType.NONE) {
+            setShadowPixel(shadowHeight, getResources().getColor(R.color.title_bar_shadow_default_color), shadowType);
+        } else {
+            setShadowPixel(shadowHeight, shadowColor, shadowType);
         }
 
-        RightType rightType = RightType.getType(a.getInt(R.styleable.TitleBar_title_bar_right_type,RightType.NONE.type));
-        TitleGravity titleGravity = TitleGravity.getGravity(a.getInt(R.styleable.TitleBar_title_bar_title_gravity,DEFAULT_TITLE_GRAVITY.type));
+        RightType rightType = RightType.getType(a.getInt(R.styleable.TitleBar_title_bar_right_type, RightType.NONE.type));
+        TitleGravity titleGravity = TitleGravity.getGravity(a.getInt(R.styleable.TitleBar_title_bar_title_gravity, DEFAULT_TITLE_GRAVITY.type));
         setTitleGravity(titleGravity);
 
         CharSequence titleText = a.getText(R.styleable.TitleBar_title_bar_title);
-        if (titleText != null){
+        if (titleText != null) {
             titleView.setText(titleText);
         }
-        rightTextStyle = a.getResourceId(R.styleable.TitleBar_title_bar_right_textView_style,R.style.title_bar_right_text_style);
-        rightImageStyle = a.getResourceId(R.styleable.TitleBar_title_bar_right_imageview_style,R.style.title_bar_right_image_style);
-        backStyle = a.getResourceId(R.styleable.TitleBar_title_bar_back_view_style,R.style.title_bar_back_style);
+        rightTextStyle = a.getResourceId(R.styleable.TitleBar_title_bar_right_textView_style, R.style.title_bar_right_text_style);
+        rightImageStyle = a.getResourceId(R.styleable.TitleBar_title_bar_right_imageview_style, R.style.title_bar_right_image_style);
+        backStyle = a.getResourceId(R.styleable.TitleBar_title_bar_back_view_style, R.style.title_bar_back_style);
         initBackView();
 
         Drawable backDrawable = a.getDrawable(R.styleable.TitleBar_title_bar_back_src);
-        if (backDrawable != null){
+        if (backDrawable != null) {
             backView.setImageDrawable(backDrawable);
         }
-        if (rightType == RightType.TEXT){
+        if (rightType == RightType.TEXT) {
             CharSequence rightText = a.getText(R.styleable.TitleBar_title_bar_right_text);
-            if (rightText != null){
+            if (rightText != null) {
                 getRightTextView().setText(rightText);
-            }else {
+            } else {
                 getRightTextView();
             }
-        }else if (rightType == RightType.IMAGE){
+        } else if (rightType == RightType.IMAGE) {
             Drawable rightDrawable = a.getDrawable(R.styleable.TitleBar_title_bar_right_src);
-            if (rightDrawable != null){
+            if (rightDrawable != null) {
                 getRightImageView().setImageDrawable(rightDrawable);
-            }else {
+            } else {
                 getRightImageView();
             }
         }
@@ -263,13 +264,13 @@ public class TitleBar extends RelativeLayout {
                 if (viewParent == windowView) {
                     int paddingTop = (int) (contentLat[1] == 0 ? TitleBar.this.getHeight() - shadowView.getShadowMaxLength() : titleBarContainer.getHeight());
                     content.setPadding(0, aboveContent ? paddingTop : 0, 0, 0);
-                    if (oldVisibility != VISIBLE){
+                    if (oldVisibility != VISIBLE) {
                         titleBarStatusBar.setVisibility(VISIBLE);
                     }
                     TitleBar.this.setPadding(leftMargin, 0, leftMargin > 0 ? 0 : TitleBar.this.getWidth() - content.getWidth(), 0);
-                }else {
+                } else {
                     int newVisibility = contentLat[1] == 0 ? VISIBLE : GONE;
-                    if (oldVisibility != newVisibility){
+                    if (oldVisibility != newVisibility) {
                         titleBarStatusBar.setVisibility(newVisibility);
                     }
                 }
@@ -289,7 +290,7 @@ public class TitleBar extends RelativeLayout {
         TextView rightTextView;
         if (rightContainer.getChildCount() == 0 || (rightTextView = rightContainer.findViewById(R.id.tv_right_view)) == null) {
             rightTextView = LayoutInflater.from(new ContextThemeWrapper(getContext(), rightTextStyle)).inflate(R.layout.layout_title_bar_right_text_view, rightContainer, true).findViewById(R.id.tv_right_view);
-            setContainerViewParams(rightTextView,rightTextStyle);
+            setContainerViewParams(rightTextView, rightTextStyle);
 
             isSetTitleGravity = true;
         }
@@ -306,6 +307,7 @@ public class TitleBar extends RelativeLayout {
         }
         return rightTextView;
     }
+
     /**
      * 获取右侧 ImageView
      *
@@ -315,7 +317,7 @@ public class TitleBar extends RelativeLayout {
         ImageView rightImageView;
         if (rightContainer.getChildCount() == 0 || (rightImageView = rightContainer.findViewById(R.id.iv_right_view)) == null) {
             rightImageView = LayoutInflater.from(new ContextThemeWrapper(getContext(), rightImageStyle)).inflate(R.layout.layout_title_bar_right_image_view, rightContainer, true).findViewById(R.id.iv_right_view);
-            setContainerViewParams(rightImageView,rightImageStyle);
+            setContainerViewParams(rightImageView, rightImageStyle);
             isSetTitleGravity = true;
         }
         int count = rightContainer.getChildCount();
@@ -340,42 +342,42 @@ public class TitleBar extends RelativeLayout {
         }
     }
 
-    private void setContainerViewParams(View view, int style){
+    private void setContainerViewParams(View view, int style) {
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) view.getLayoutParams();
         @SuppressLint("CustomViewStyleable") TypedArray a = getContext().obtainStyledAttributes(style, R.styleable.TitleBar_Layout);
-        int width = a.getLayoutDimension(R.styleable.TitleBar_Layout_android_layout_width,layoutParams.width);
-        int height = a.getLayoutDimension(R.styleable.TitleBar_Layout_android_layout_height,layoutParams.height);
-        int gravity = a.getInt(R.styleable.TitleBar_Layout_android_layout_gravity,layoutParams.gravity);
-        int marginStart = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginStart,-1);
-        int marginEnd = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginEnd,-1);
-        int leftMargin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginLeft,layoutParams.leftMargin);
-        int rightMargin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginRight,layoutParams.rightMargin);
-        int topMargin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginTop,layoutParams.topMargin);
-        int bottomMargin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginBottom,layoutParams.bottomMargin);
-        int margin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_margin,-1);
-        int marginHorizontal = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginHorizontal,margin);
-        int marginVertical = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginVertical,margin);
-        if (view instanceof ImageView){
-            if (view.getId() == R.id.iv_title_bar_back){
+        int width = a.getLayoutDimension(R.styleable.TitleBar_Layout_android_layout_width, layoutParams.width);
+        int height = a.getLayoutDimension(R.styleable.TitleBar_Layout_android_layout_height, layoutParams.height);
+        int gravity = a.getInt(R.styleable.TitleBar_Layout_android_layout_gravity, layoutParams.gravity);
+        int marginStart = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginStart, -1);
+        int marginEnd = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginEnd, -1);
+        int leftMargin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginLeft, layoutParams.leftMargin);
+        int rightMargin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginRight, layoutParams.rightMargin);
+        int topMargin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginTop, layoutParams.topMargin);
+        int bottomMargin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginBottom, layoutParams.bottomMargin);
+        int margin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_margin, -1);
+        int marginHorizontal = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginHorizontal, margin);
+        int marginVertical = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginVertical, margin);
+        if (view instanceof ImageView) {
+            if (view.getId() == R.id.iv_title_bar_back) {
                 Drawable drawable = a.getDrawable(R.styleable.TitleBar_Layout_android_src);
-                if (drawable != null){
+                if (drawable != null) {
                     ((ImageView) view).setImageDrawable(drawable);
-                }else {
+                } else {
                     ((ImageView) view).setImageResource(R.drawable.ic_title_bar_back);
                 }
-            }else if (view.getId() == R.id.iv_right_view){
+            } else if (view.getId() == R.id.iv_right_view) {
                 Drawable drawable = a.getDrawable(R.styleable.TitleBar_Layout_android_src);
-                if (drawable != null){
+                if (drawable != null) {
                     ((ImageView) view).setImageDrawable(drawable);
-                }else {
+                } else {
                     ((ImageView) view).setImageResource(R.drawable.ic_title_bar_more);
                 }
             }
-        }else if (view instanceof TextView){
-            if (view.getId() == R.id.tv_right_view){
-                float textSize = a.getDimension(R.styleable.TitleBar_Layout_android_textSize,getResources().getDimension(R.dimen.title_bar_rightTextView_textSize));
-                ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
-                int textColor = a.getColor(R.styleable.TitleBar_Layout_android_textColor,getResources().getColor(R.color.title_bar_rightTextView_textColor));
+        } else if (view instanceof TextView) {
+            if (view.getId() == R.id.tv_right_view) {
+                float textSize = a.getDimension(R.styleable.TitleBar_Layout_android_textSize, getResources().getDimension(R.dimen.title_bar_rightTextView_textSize));
+                ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+                int textColor = a.getColor(R.styleable.TitleBar_Layout_android_textColor, getResources().getColor(R.color.title_bar_rightTextView_textColor));
                 ((TextView) view).setTextColor(textColor);
             }
         }
@@ -387,18 +389,18 @@ public class TitleBar extends RelativeLayout {
         layoutParams.rightMargin = rightMargin;
         layoutParams.topMargin = topMargin;
         layoutParams.bottomMargin = bottomMargin;
-        if (marginVertical != -1){
+        if (marginVertical != -1) {
             layoutParams.topMargin = marginVertical;
             layoutParams.bottomMargin = marginVertical;
         }
-        if (marginHorizontal != -1){
+        if (marginHorizontal != -1) {
             layoutParams.leftMargin = marginHorizontal;
             layoutParams.rightMargin = marginHorizontal;
         }
-        if (marginStart != -1){
+        if (marginStart != -1) {
             layoutParams.setMarginStart(marginStart);
         }
-        if (marginEnd != -1){
+        if (marginEnd != -1) {
             layoutParams.setMarginEnd(marginEnd);
         }
         view.setLayoutParams(layoutParams);
@@ -406,25 +408,25 @@ public class TitleBar extends RelativeLayout {
 
     }
 
-    private void setTitleViewParams(View view,int style){
+    private void setTitleViewParams(View view, int style) {
         ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) view.getLayoutParams();
         @SuppressLint("CustomViewStyleable") TypedArray a = getContext().obtainStyledAttributes(style, R.styleable.TitleBar_Layout);
-        int width = a.getLayoutDimension(R.styleable.TitleBar_Layout_android_layout_width,layoutParams.width);
-        int height = a.getLayoutDimension(R.styleable.TitleBar_Layout_android_layout_height,layoutParams.height);
-        int marginStart = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginStart,-1);
-        int marginEnd = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginEnd,-1);
-        int leftMargin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginLeft,layoutParams.leftMargin);
-        int rightMargin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginRight,layoutParams.rightMargin);
-        int topMargin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginTop,layoutParams.topMargin);
-        int bottomMargin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginBottom,layoutParams.bottomMargin);
-        int margin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_margin,-1);
-        int marginHorizontal = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginHorizontal,margin);
-        int marginVertical = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginVertical,margin);
-        if (view instanceof TextView){
-            if (view.getId() == R.id.tv_title_bar_title){
-                float textSize = a.getDimension(R.styleable.TitleBar_Layout_android_textSize,getResources().getDimension(R.dimen.title_bar_title_textSize));
-                ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
-                int textColor = a.getColor(R.styleable.TitleBar_Layout_android_textColor,getResources().getColor(R.color.title_bar_title_textColor));
+        int width = a.getLayoutDimension(R.styleable.TitleBar_Layout_android_layout_width, layoutParams.width);
+        int height = a.getLayoutDimension(R.styleable.TitleBar_Layout_android_layout_height, layoutParams.height);
+        int marginStart = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginStart, -1);
+        int marginEnd = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginEnd, -1);
+        int leftMargin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginLeft, layoutParams.leftMargin);
+        int rightMargin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginRight, layoutParams.rightMargin);
+        int topMargin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginTop, layoutParams.topMargin);
+        int bottomMargin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginBottom, layoutParams.bottomMargin);
+        int margin = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_margin, -1);
+        int marginHorizontal = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginHorizontal, margin);
+        int marginVertical = a.getDimensionPixelOffset(R.styleable.TitleBar_Layout_android_layout_marginVertical, margin);
+        if (view instanceof TextView) {
+            if (view.getId() == R.id.tv_title_bar_title) {
+                float textSize = a.getDimension(R.styleable.TitleBar_Layout_android_textSize, getResources().getDimension(R.dimen.title_bar_title_textSize));
+                ((TextView) view).setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+                int textColor = a.getColor(R.styleable.TitleBar_Layout_android_textColor, getResources().getColor(R.color.title_bar_title_textColor));
                 ((TextView) view).setTextColor(textColor);
             }
         }
@@ -435,18 +437,18 @@ public class TitleBar extends RelativeLayout {
         layoutParams.rightMargin = rightMargin;
         layoutParams.topMargin = topMargin;
         layoutParams.bottomMargin = bottomMargin;
-        if (marginVertical != -1){
+        if (marginVertical != -1) {
             layoutParams.topMargin = marginVertical;
             layoutParams.bottomMargin = marginVertical;
         }
-        if (marginHorizontal != -1){
+        if (marginHorizontal != -1) {
             layoutParams.leftMargin = marginHorizontal;
             layoutParams.rightMargin = marginHorizontal;
         }
-        if (marginStart != -1){
+        if (marginStart != -1) {
             layoutParams.setMarginStart(marginStart);
         }
-        if (marginEnd != -1){
+        if (marginEnd != -1) {
             layoutParams.setMarginEnd(marginEnd);
         }
         view.setLayoutParams(layoutParams);
@@ -482,26 +484,25 @@ public class TitleBar extends RelativeLayout {
      * @param shadowType     shadow 样式 {@link ShadowType#LINE} 实线 / {@link ShadowType#GRADIENT} 渐变线
      */
     public void setShadow(float shadowHeightDp, @ColorInt int shadowColor, ShadowType shadowType) {
-        setShadowPixel(ScreenUtils.dp2px(getContext(), shadowHeightDp),shadowColor,shadowType);
+        setShadowPixel(ScreenUtils.dp2px(getContext(), shadowHeightDp), shadowColor, shadowType);
     }
 
     /**
      * 设置底部 Shadow 样式
      *
      * @param shadowHeightDp shadow 高度
-     * @param shadowDrawable   资源图
+     * @param shadowDrawable 资源图
      */
     public void setShadow(float shadowHeightDp, Drawable shadowDrawable) {
-        setShadowPixel(ScreenUtils.dp2px(getContext(), shadowHeightDp),shadowDrawable,ShadowType.LINE);
+        setShadowPixel(ScreenUtils.dp2px(getContext(), shadowHeightDp), shadowDrawable, ShadowType.LINE);
     }
 
     /**
-     *
-     * @param shadowHeightDp shadow 高度
+     * @param shadowHeightDp    shadow 高度
      * @param shadowDrawableRes 资源图id
      */
     public void setShadow(float shadowHeightDp, @DrawableRes int shadowDrawableRes) {
-        setShadowPixel(ScreenUtils.dp2px(getContext(), shadowHeightDp),getResources().getDrawable(shadowDrawableRes),ShadowType.LINE);
+        setShadowPixel(ScreenUtils.dp2px(getContext(), shadowHeightDp), getResources().getDrawable(shadowDrawableRes), ShadowType.LINE);
     }
 
     private void setShadowPixel(float shadowHeightPx, @ColorInt int shadowColor, ShadowType shadowType) {
@@ -532,28 +533,48 @@ public class TitleBar extends RelativeLayout {
         shadowView.setVisibility(showShadow ? VISIBLE : GONE);
     }
 
+    /**
+     * 已被弃用，可以看下 {@link TitleBar#setTitleBarBackground}
+     * @param background Drawable
+     */
+    @Deprecated
     @Override
     public void setBackground(Drawable background) {
         if (backgroundView == null) {
             pendingSetBackground = background;
             return;
         }
-        setTitleBarBackgroundWithStatusBar(background);
+        setTitleBarBackground(background);
     }
 
+    /**
+     * 已被弃用，可以看下 {@link TitleBar#setTitleBarBackgroundColor}
+     * @param color 颜色
+     */
+    @Deprecated
     @Override
-    public void setBackgroundColor(int color) {
-        setTitleBarBackgroundColorWithStatusBar(color);
+    public void setBackgroundColor(@ColorInt int color) {
+        setTitleBarBackgroundColor(color);
     }
 
+    /**
+     * 已被弃用，可以看下 {@link TitleBar#setTitleBarBackgroundResource}
+     * @param resid 资源id
+     */
+    @Deprecated
     @Override
-    public void setBackgroundResource(int resid) {
-        setTitleBarBackgroundResourceWithStatusBar(resid);
+    public void setBackgroundResource(@DrawableRes int resid) {
+        setTitleBarBackgroundResource(resid);
     }
 
+    /**
+     * 已被弃用，可以看下 {@link TitleBar#setTitleBarBackground}
+     * @param background Drawable
+     */
+    @Deprecated
     @Override
     public void setBackgroundDrawable(Drawable background) {
-        setTitleBarBackgroundWithStatusBar(background);
+        setTitleBarBackground(background);
     }
 
     /**
@@ -570,7 +591,7 @@ public class TitleBar extends RelativeLayout {
      *
      * @param resid 背景资源图
      */
-    public void setTitleBarBackgroundResourceWithStatusBar(int resid) {
+    public void setTitleBarBackgroundResourceWithStatusBar(@DrawableRes int resid) {
         backgroundView.setBackgroundResource(resid);
     }
 
@@ -579,7 +600,7 @@ public class TitleBar extends RelativeLayout {
      *
      * @param color 背景颜色
      */
-    public void setTitleBarBackgroundColorWithStatusBar(int color) {
+    public void setTitleBarBackgroundColorWithStatusBar(@ColorInt int color) {
         backgroundView.setBackgroundColor(color);
     }
 
@@ -597,7 +618,7 @@ public class TitleBar extends RelativeLayout {
      *
      * @param resid 背景资源图
      */
-    public void setTitleBarBackgroundResource(int resid) {
+    public void setTitleBarBackgroundResource(@DrawableRes int resid) {
         titleBarContainer.setBackgroundResource(resid);
     }
 
@@ -606,7 +627,7 @@ public class TitleBar extends RelativeLayout {
      *
      * @param color 背景颜色
      */
-    public void setTitleBarBackgroundColor(int color) {
+    public void setTitleBarBackgroundColor(@ColorInt int color) {
         titleBarContainer.setBackgroundColor(color);
     }
 
@@ -849,15 +870,53 @@ public class TitleBar extends RelativeLayout {
         setTitleBarPaddings();
     }
 
+    /**
+     * 此方法已被修改，整个View的高度设定将应用于 返回一览 ，这个外层的高度始终是{@link ViewGroup.LayoutParams#WRAP_CONTENT}<br>
+     * 详情可看{@link TitleBar#setTitleBarLayoutParams(ViewGroup.LayoutParams)}
+     */
     @Override
     public void setLayoutParams(ViewGroup.LayoutParams params) {
-        if (titleBarContainer != null){
+        setTitleBarLayoutParams(params);
+    }
+
+    /**
+     * 不建议使用这个方法，因为这可能包含你不需要的东西。详情可看{@link TitleBar#getTitleBarLayoutParams}
+     * @return
+     */
+    @Deprecated
+    @Override
+    public ViewGroup.LayoutParams getLayoutParams() {
+        return super.getLayoutParams();
+    }
+
+    /**
+     * 获取实际 {@link ViewGroup.LayoutParams} 参数，因为整个TitleBar实际包含了<上 中 下> 三部分
+     * 那么我们实际上主要关注的是返回按钮那一栏，不关心 shadow 和 状态栏，所以建议用这个
+     * <ul>
+     *  <li> 上 -> 状态栏占位所用的View
+     *  <li> 中 -> 就是返回按钮一栏
+     *  <li> 下 -> 显示 shadow 的View
+     * </ul>
+     * @return
+     */
+    public ViewGroup.LayoutParams getTitleBarLayoutParams() {
+        ViewGroup.LayoutParams containerLayoutParams = titleBarContainer.getLayoutParams();
+        ViewGroup.LayoutParams layoutParams = super.getLayoutParams();
+        layoutParams.height = containerLayoutParams.height;
+        return layoutParams;
+    }
+    /**
+     * 设置实际 {@link ViewGroup.LayoutParams} 参数，原因可看{@link TitleBar#getTitleBarLayoutParams()}<br>
+     * TitleBar 高度永远是{@link ViewGroup.LayoutParams#WRAP_CONTENT}，实际上高度设定给了 返回按钮一栏
+     */
+    public void setTitleBarLayoutParams(ViewGroup.LayoutParams params) {
+        if (titleBarContainer != null) {
             ViewGroup.LayoutParams layoutParams = titleBarContainer.getLayoutParams();
-            layoutParams.width = params.width;
             layoutParams.height = params.height;
             titleBarContainer.setLayoutParams(layoutParams);
         }
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         super.setLayoutParams(params);
     }
+
 }

@@ -55,9 +55,9 @@ public class MainActivity extends BaseActivity {
                 titleBar.getRightTextView().setText("11111");
                 titleBar.getRightTextView().setTextColor(Color.BLUE);
 
-                ViewGroup.LayoutParams layoutParams = titleBar2.getLayoutParams();
-                layoutParams.height = (int) ScreenUtils.dp2px(this,30);
-                titleBar2.setLayoutParams(layoutParams);
+                ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) titleBar.getTitleBarLayoutParams();
+                layoutParams.topMargin = (int) ScreenUtils.dp2px(this,30);
+                titleBar.setLayoutParams(layoutParams);
                 break;
         }
     }
