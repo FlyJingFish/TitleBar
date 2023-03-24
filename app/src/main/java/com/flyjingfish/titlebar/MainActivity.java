@@ -1,7 +1,10 @@
 package com.flyjingfish.titlebar;
 
+import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -22,6 +25,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         titleBar2 = findViewById(R.id.title_bar);
+        StatusBarHelper.translucent(this);
+        StatusBarHelper.setStatusBarLightMode(this);
         View view = new View(this);
         view.setBackgroundColor(Color.RED);
 //        titleBar2.setCustomView(view );
@@ -34,6 +39,7 @@ public class MainActivity extends BaseActivity {
             case R.id.btn_1:
                 StatusBarHelper.translucent(this);
                 StatusBarHelper.setStatusBarLightMode(this);
+                titleBar.setStatusBarBackgroundColor(Color.BLUE);
                 titleBar.setTitleGravity(TitleBar.TitleGravity.START);
                 titleBar.setTitleBarBackgroundColorWithStatusBar(Color.RED);
                 titleBar.getRightImageView().setVisibility(View.GONE);
@@ -48,6 +54,13 @@ public class MainActivity extends BaseActivity {
                 titleBar.getRightImageView().setOnClickListener(v -> Toast.makeText(v.getContext(),"more",Toast.LENGTH_SHORT).show());
 //                titleBar.hideShadow();
                 titleBar.setAboveContent(true);
+                ViewGroup content = findViewById(android.R.id.content);
+                int[] contentLat = new int[2];
+                content.getLocationOnScreen(contentLat);
+                Log.e("getLocationOnScreen",contentLat[0]+"=="+contentLat[1]);
+                Rect rect = new Rect();
+                content.getLocalVisibleRect(rect);
+                Log.e("getLocationOnScreen",content.getTop()+"");
                 break;
             case R.id.btn_3:
                 titleBar.getRightTextView().setVisibility(View.VISIBLE);
@@ -55,9 +68,6 @@ public class MainActivity extends BaseActivity {
                 titleBar.getRightTextView().setText("11111");
                 titleBar.getRightTextView().setTextColor(Color.BLUE);
 
-                ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) titleBar.getTitleBarLayoutParams();
-                layoutParams.topMargin = (int) ScreenUtils.dp2px(this,30);
-                titleBar.setLayoutParams(layoutParams);
                 break;
         }
     }

@@ -55,6 +55,7 @@ public class TitleBar extends RelativeLayout {
     private final int rightTextStyle;
     private final int rightImageStyle;
     private final int backStyle;
+    private final PaddingViewTreeObserver paddingViewTreeObserver = new PaddingViewTreeObserver();
 
     public enum ShadowType {
         NONE(0),
@@ -158,6 +159,12 @@ public class TitleBar extends RelativeLayout {
         setMinimumHeight(0);
         titleBarContainer.setMinHeight(minHeight);
 
+        Drawable statusBarBackground = a.getDrawable(R.styleable.TitleBar_title_bar_status_bar_background);
+        setStatusBarBackground(statusBarBackground);
+        if (isInEditMode() && statusBarBackground != null){
+            titleBarStatusBar.setVisibility(VISIBLE);
+        }
+
         ShadowType shadowType = ShadowType.getType(a.getInt(R.styleable.TitleBar_title_bar_shadow_type, ShadowType.NONE.type));
         Drawable shadowColor = a.getDrawable(R.styleable.TitleBar_title_bar_shadow);
         float shadowHeight = a.getDimension(R.styleable.TitleBar_title_bar_shadow_height, getResources().getDimension(R.dimen.title_bar_shadow_default_height));
@@ -203,6 +210,17 @@ public class TitleBar extends RelativeLayout {
         }
 
         a.recycle();
+    }
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        getViewTreeObserver().addOnGlobalLayoutListener(paddingViewTreeObserver);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        getViewTreeObserver().removeOnGlobalLayoutListener(paddingViewTreeObserver);
     }
 
     @Override
@@ -251,34 +269,41 @@ public class TitleBar extends RelativeLayout {
             return;
         }
 
-        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        getViewTreeObserver().addOnGlobalLayoutListener(new PaddingViewTreeObserver() {
             @Override
             public void onGlobalLayout() {
-                ViewParent viewParent = getParent();
-                View windowView = ((Activity) getContext()).getWindow().getDecorView();
-                ViewGroup content = ((Activity) getContext()).findViewById(android.R.id.content);
-                int[] contentLat = new int[2];
-                content.getLocationOnScreen(contentLat);
-                int leftMargin = contentLat[0];
-                int oldVisibility = titleBarStatusBar.getVisibility();
-                if (viewParent == windowView) {
-                    int paddingTop = (int) (contentLat[1] == 0 ? TitleBar.this.getHeight() - shadowView.getShadowMaxLength() : titleBarContainer.getHeight());
-                    content.setPadding(0, aboveContent ? paddingTop : 0, 0, 0);
-                    if (oldVisibility != VISIBLE) {
-                        titleBarStatusBar.setVisibility(VISIBLE);
-                    }
-                    TitleBar.this.setPadding(leftMargin, 0, leftMargin > 0 ? 0 : TitleBar.this.getWidth() - content.getWidth(), 0);
-                } else {
-                    int newVisibility = contentLat[1] == 0 ? VISIBLE : GONE;
-                    if (oldVisibility != newVisibility) {
-                        titleBarStatusBar.setVisibility(newVisibility);
-                    }
-                }
-
                 getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
 
+    }
+
+    private class PaddingViewTreeObserver implements ViewTreeObserver.OnGlobalLayoutListener {
+        @Override
+        public void onGlobalLayout() {
+            ViewParent viewParent = getParent();
+            View windowView = ((Activity) getContext()).getWindow().getDecorView();
+            ViewGroup content = ((Activity) getContext()).findViewById(android.R.id.content);
+            int[] contentLat = new int[2];
+            content.getLocationOnScreen(contentLat);
+            int leftMargin = contentLat[0];
+            int oldVisibility = titleBarStatusBar.getVisibility();
+            if (viewParent == windowView) {
+                int paddingTop = (int) (contentLat[1] == 0 ? TitleBar.this.getHeight() - shadowView.getShadowMaxLength() : titleBarContainer.getHeight());
+                content.setPadding(0, aboveContent ? paddingTop : 0, 0, 0);
+                if (oldVisibility != VISIBLE) {
+                    titleBarStatusBar.setVisibility(VISIBLE);
+                }
+                TitleBar.this.setPadding(leftMargin, 0, leftMargin > 0 ? 0 : TitleBar.this.getWidth() - content.getWidth(), 0);
+            } else {
+                int[] titleBarLat = new int[2];
+                TitleBar.this.getLocationOnScreen(titleBarLat);
+                int newVisibility = contentLat[1] == 0 && titleBarLat[1] == 0? VISIBLE : GONE;
+                if (oldVisibility != newVisibility) {
+                    titleBarStatusBar.setVisibility(newVisibility);
+                }
+            }
+        }
     }
 
     /**
@@ -531,6 +556,14 @@ public class TitleBar extends RelativeLayout {
      */
     public void setDisplayShadow(boolean showShadow) {
         shadowView.setVisibility(showShadow ? VISIBLE : GONE);
+    }
+
+    @Override
+    public Drawable getBackground() {
+        if (titleBarContainer != null){
+            return titleBarContainer.getBackground();
+        }
+        return super.getBackground();
     }
 
     /**
@@ -902,7 +935,9 @@ public class TitleBar extends RelativeLayout {
     public ViewGroup.LayoutParams getTitleBarLayoutParams() {
         ViewGroup.LayoutParams containerLayoutParams = titleBarContainer.getLayoutParams();
         ViewGroup.LayoutParams layoutParams = super.getLayoutParams();
-        layoutParams.height = containerLayoutParams.height;
+        if (layoutParams != null){
+            layoutParams.height = containerLayoutParams.height;
+        }
         return layoutParams;
     }
     /**
@@ -919,4 +954,38 @@ public class TitleBar extends RelativeLayout {
         super.setLayoutParams(params);
     }
 
+    /**
+     * 设置状态栏背景
+     *
+     * @param background  Drawable
+     */
+    public void setStatusBarBackground(Drawable background) {
+        titleBarStatusBar.setBackground(background);
+    }
+
+    /**
+     * 设置状态栏背景
+     *
+     * @param resid 资源图
+     */
+    public void setStatusBarBackgroundResource(@DrawableRes int resid) {
+        titleBarStatusBar.setBackgroundResource(resid);
+    }
+
+    /**
+     * 设置状态栏背景
+     *
+     * @param color 颜色
+     */
+    public void setStatusBarBackgroundColor(@ColorInt int color) {
+        titleBarStatusBar.setBackgroundColor(color);
+    }
+
+    /**
+     * 获取状态栏View
+     * @return ImageView
+     */
+    public ImageView getTitleBarStatusBar() {
+        return titleBarStatusBar;
+    }
 }

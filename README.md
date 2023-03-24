@@ -30,6 +30,7 @@
     }
 ```
 ## 第三步，使用说明
+## 特别说明：您不需要关心 TitleBar 会从状态栏开始显示，本库已经做过适配了
 
 ### 一、基础使用方法及属性说明
 
@@ -99,6 +100,10 @@
 | setTitleBarBackgroundResource              |                        设置标题栏背景 不 包含状态栏                        |
 | setTitleBarBackgroundColor                 |                        设置标题栏背景包 不 含状态栏                        |
 | setOnBackViewClickListener                 |                           设置返回点击监听                            |
+| setStatusBarBackground                     |                 设置状态栏栏背景(如果不设置全屏或透明状态栏是看不到的）                  |
+| setStatusBarBackgroundResource             |                 设置状态栏栏背景(如果不设置全屏或透明状态栏是看不到的）                  |
+| setStatusBarBackgroundColor                |                 设置状态栏栏背景(如果不设置全屏或透明状态栏是看不到的）                  |
+| getTitleBarStatusBar                       |                        获取状态栏ImageView                         |
 | setOnBackViewLongClickListener             |                           设置返回长按监听                            |
 | setOnRightViewClickListener                |                           设置右侧点击监听                            |
 | setOnRightViewLongClickListener            |                           设置右侧长按监听                            |
@@ -120,6 +125,7 @@
 | title_bar_shadow_type           |      enum       |   shadow类型   |
 | title_bar_shadow                | reference/color | shadow颜色或资源图 |
 | title_bar_shadow_height         |    dimension    |   shadow高度   |
+| title_bar_status_bar_background | reference/color |    状态栏背景     |
 | title_bar_right_textView_style  |    reference    | 右侧文本样式style  |
 | title_bar_right_imageview_style |    reference    | 右侧图片样式style  |
 | title_bar_back_view_style       |    reference    | 返回图片样式style  |
