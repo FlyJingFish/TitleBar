@@ -76,7 +76,7 @@
 
 | 方法                                         |                             方法说明                              |
 |--------------------------------------------|:-------------------------------------------------------------:|
-| attachToWindow                             |                        加入到页面 Window 层                         |
+| attachToWindow                             |             加入到页面 Window 层（如果你直接写在页面布局上，不要调用这一句）              |
 | setAboveContent                            | TitleBar 是否在内容上边（true则TitleBar和布局成上下结构，false则TitleBar覆盖在布局上方） |
 | getTitleView                               |                         获取标题 TextView                         |
 | setTitle                                   |                             设置标题                              |
@@ -158,7 +158,7 @@ public class BaseActivity extends AppCompatActivity {
         }
         titleBar.setTitle(getTitleString());
         titleBar.setAboveContent(titleAboveContent());
-        titleBar.attachToWindow();
+        titleBar.attachToWindow();//这句只用在TitleBar未加入到页面上时使用
     }
 }
 ```
