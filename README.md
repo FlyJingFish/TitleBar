@@ -112,6 +112,8 @@
 | getTitleBarLayoutParams                    |                   如果需要用到 getLayoutParams 方法，建议改用这个，详细说明可看代码中的方法说明                   |
 | setTitleBarLayoutParams                    |                   如果需要用到 setLayoutParams 方法，建议改用这个，详细说明可看代码中的方法说明                   |
 | setRealLayoutParams                        |                      給TitleBar设置实际的 LayoutParams 参数，详细说明看方法说明                       |
+| setLayoutParams                            |                    此方法已被改写为实际调用 setTitleBarLayoutParams ，且被标记为弃用                    |
+| getLayoutParams                            |                                  此方法没有改写逻辑只是被标记为弃用                                  |
 | getShadowHeight                            |                                    获取shadow 的高度                                     |
 | getStatusBarViewHeight                     |                                      获取状态栏的高度                                       |
 | getTitleBarHeight                          |                     获取TitleBar总高度，这个高度是包含状态栏，shadow和返回按钮一栏的总高度                      |
