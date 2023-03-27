@@ -12,11 +12,11 @@
         <item name="android:text">200</item>
     </style>
     <style name="right_image_style">
-        <item name="android:layout_width">30dp</item>
-        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">10dp</item>
-        <item name="android:src">@drawable/ic_pay_suc_vip</item>
+<!--        <item name="android:src">@drawable/ic_pay_suc_vip</item>-->
         <item name="android:scaleType">centerCrop</item>
     </style>
     <style name="back_style">
@@ -34,7 +34,7 @@
         <item name="android:layout_gravity">center_horizontal|top</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/purple_700</item>
-        <item name="android:textStyle">bold|italic</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:text">200</item>
     </style>
     <!--局部配置 end -->

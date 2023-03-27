@@ -15,8 +15,7 @@
         app:title_bar_title_style="@style/title_style"
         app:title_bar_right_imageview_style="@style/right_image_style"
         app:title_bar_back_view_style="@style/back_style"
-        app:title_bar_title="4444"
-        app:title_bar_back_src="@mipmap/ic_launcher_round"
+        app:title_bar_title="这是标题返回按钮一栏"
         app:title_bar_right_type="image"
         app:title_bar_right_text="3333"
         app:title_bar_title_gravity="center"
@@ -24,11 +23,29 @@
         app:title_bar_shadow="@color/purple_700"
         app:title_bar_shadow_type="gradient"
         android:background="@color/teal_700"/>
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginTop="3dp"-->
+<!--        android:text="这里是状态栏的背景区域"/>-->
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginTop="70dp"-->
+<!--        android:text="这里是shadow 区域"/>-->
+
     <com.flyjingfish.titlebarlib.TitleBar
         android:id="@+id/title_bar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title_bar"
+        android:layout_marginTop="50dp"
         app:title_bar_title="4444"
         app:title_bar_back_src="@mipmap/ic_launcher_round"
         app:title_bar_right_type="text"
@@ -61,10 +78,10 @@
         android:text="btn3"/>
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test"/>
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="test"/>-->
 
 
 </RelativeLayout>

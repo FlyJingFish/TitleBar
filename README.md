@@ -30,7 +30,13 @@
     }
 ```
 ## 第三步，使用说明
+
 ## 特别说明：您不需要关心 TitleBar 会从状态栏开始显示，本库已经做过适配了
+
+**以下是TitleBar的结构**
+
+<img src="https://github.com/FlyJingFish/TitleBar/blob/master/screenshot/title_bar_info.png" width="824px" height="260px" alt="show" />
+
 
 ### 一、基础使用方法及属性说明
 
