@@ -955,6 +955,38 @@ public class TitleBar extends RelativeLayout {
     }
 
     /**
+     * 设置整个包含状态栏和shadow 的TitleBar的 {@link ViewGroup.LayoutParams}，不建议用这个
+     * @param params
+     */
+    public void setRealLayoutParams(ViewGroup.LayoutParams params){
+        super.setLayoutParams(params);
+    }
+
+    /**
+     *
+     * @return shadow高度
+     */
+    public int getShadowHeight(){
+        return shadowView.getHeight();
+    }
+
+    /**
+     *
+     * @return 状态栏高度
+     */
+    public int getStatusBarViewHeight(){
+        return titleBarStatusBar.getHeight();
+    }
+
+    /**
+     * 这个高度是包含状态栏，shadow和返回按钮一栏的总高度
+     * @return 整个TitleBar 的高度
+     */
+    public int getTitleBarHeight(){
+        return getHeight();
+    }
+
+    /**
      * 设置状态栏背景
      *
      * @param background  Drawable

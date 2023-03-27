@@ -100,9 +100,9 @@
 | setTitleBarBackgroundResource              |                                   设置标题栏背景 不 包含状态栏                                   |
 | setTitleBarBackgroundColor                 |                                   设置标题栏背景包 不 含状态栏                                   |
 | setOnBackViewClickListener                 |                                      设置返回点击监听                                       |
-| setStatusBarBackground                     |                            设置状态栏栏背景(如果不设置全屏或透明状态栏是看不到的）                             |
-| setStatusBarBackgroundResource             |                            设置状态栏栏背景(如果不设置全屏或透明状态栏是看不到的）                             |
-| setStatusBarBackgroundColor                |                            设置状态栏栏背景(如果不设置全屏或透明状态栏是看不到的）                             |
+| setStatusBarBackground                     |                             设置状态栏背景(如果不设置全屏或透明状态栏是看不到的）                             |
+| setStatusBarBackgroundResource             |                             设置状态栏背景(如果不设置全屏或透明状态栏是看不到的）                             |
+| setStatusBarBackgroundColor                |                             设置状态栏背景(如果不设置全屏或透明状态栏是看不到的）                             |
 | getTitleBarStatusBar                       |                                   获取状态栏ImageView                                    |
 | setOnBackViewLongClickListener             |                                      设置返回长按监听                                       |
 | setOnRightViewClickListener                |                                      设置右侧点击监听                                       |
@@ -111,6 +111,10 @@
 | hide                                       |                                     隐藏 TitleBar                                     |
 | getTitleBarLayoutParams                    |                   如果需要用到 getLayoutParams 方法，建议改用这个，详细说明可看代码中的方法说明                   |
 | setTitleBarLayoutParams                    |                   如果需要用到 setLayoutParams 方法，建议改用这个，详细说明可看代码中的方法说明                   |
+| setRealLayoutParams                        |                      給TitleBar设置实际的 LayoutParams 参数，详细说明看方法说明                       |
+| getShadowHeight                            |                                    获取shadow 的高度                                     |
+| getStatusBarViewHeight                     |                                      获取状态栏的高度                                       |
+| getTitleBarHeight                          |                     获取TitleBar总高度，这个高度是包含状态栏，shadow和返回按钮一栏的总高度                      |
 
 **3、布局中属性一览**
 
