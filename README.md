@@ -35,7 +35,7 @@
 
 **以下是TitleBar的结构**
 
-<img src="https://github.com/FlyJingFish/TitleBar/blob/master/screenshot/title_bar_info.png" width="824px" height="260px" alt="show" />
+<img src="https://github.com/FlyJingFish/TitleBar/blob/master/screenshot/title_bar_info.png" width="412px" height="130px" alt="show" />
 
 
 ### 一、基础使用方法及属性说明
