@@ -37,7 +37,7 @@
 
 <img src="https://github.com/FlyJingFish/TitleBar/blob/master/screenshot/title_bar_info.png" width="412px" height="130px" alt="show" />
 
-状态栏背景区域，如果页面没有设置全屏会看不到的。不过不论是否设置全屏，TitleBar的**标题返回按钮一栏**都会从状态栏以下开始显示
+状态栏背景区域，如果页面没有设置全屏会看不到的。当然不论是否设置全屏，TitleBar的**标题返回按钮一栏**都会从状态栏以下开始显示
 
 ### 一、基础使用方法及属性说明
 
