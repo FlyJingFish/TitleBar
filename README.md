@@ -95,9 +95,9 @@
 | getBackView                                |                                  获取返回按钮 ImageView                                   |
 | setCustomLeftView                          |                                     设置左侧自定义View                                     |
 | setDisplayLeftView                         |                               设置是否显示左侧View（通常是指返回按钮）                                |
-| getRightTextView                           |                                    获取右侧 TextView                                    |
-| getRightImageView                          |                                   获取右侧 ImageView                                    |
-| setCustomRightView                         |                                     设置右侧自定义View                                     |
+| getRightTextView                           |                   获取右侧 TextView (获取后 右侧 ImageView 就移除了，两者只可以存在一个)                   |
+| getRightImageView                          |                   获取右侧 ImageView (获取后 右侧 TextView 就移除了，两者只可以存在一个)                   |
+| setCustomRightView                         |                          设置右侧自定义View（一个图片或一个文本的按钮不够用则用这个）                           |
 | setDisplayRightView                        |                                    设置是否显示右侧View                                     |
 | setTitleBarBackgroundWithStatusBar         |                                    设置标题栏背景包含状态栏                                     |
 | setTitleBarBackgroundResourceWithStatusBar |                                    设置标题栏背景包含状态栏                                     |
