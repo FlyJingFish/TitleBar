@@ -527,7 +527,7 @@ public class TitleBar extends RelativeLayout {
      * @param shadowDrawableRes 资源图id
      */
     public void setShadow(float shadowHeightDp, @DrawableRes int shadowDrawableRes) {
-        setShadowPixel(ScreenUtils.dp2px(getContext(), shadowHeightDp), getResources().getDrawable(shadowDrawableRes), ShadowType.LINE);
+        setShadow(shadowHeightDp,getResources().getDrawable(shadowDrawableRes));
     }
 
     private void setShadowPixel(float shadowHeightPx, @ColorInt int shadowColor, ShadowType shadowType) {
