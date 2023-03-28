@@ -212,7 +212,33 @@ public class BaseActivity extends AppCompatActivity {
     <item name="android:scaleType">centerCrop</item>
 </style>
 ```
+定义返回按钮样式
 
+```xml
+<style name="back_style">
+    <item name="android:layout_width">20dp</item>
+    <item name="android:layout_height">20dp</item>
+    <item name="android:layout_marginStart">10dp</item>
+    <item name="android:layout_marginEnd">10dp</item>
+    <item name="android:scaleType">centerCrop</item>
+</style>
+```
+
+定义标题样式
+
+```xml
+<style name="title_style" >
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginStart">4dp</item>
+    <item name="android:layout_marginEnd">4dp</item>
+    <item name="android:layout_gravity">center_horizontal|top</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textColor">@color/purple_700</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:text">200</item>
+</style>
+```
 [更多style配置详看这里](https://github.com/FlyJingFish/TitleBar/blob/master/app/src/main/res/values/style.xml)
 
 布局中使用
