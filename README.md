@@ -190,7 +190,7 @@ public class BaseActivity extends AppCompatActivity {
 定义右侧文本样式
 
 ```xml
- <style name="right_text_style" >
+<style name="right_text_style" >
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_marginStart">4dp</item>
