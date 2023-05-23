@@ -130,9 +130,9 @@
 | attr                            |     format      | description  |
 |---------------------------------|:---------------:|:------------:|
 | title_bar_title                 |     string      |      标题      |
-| title_bar_back_src              |    reference    |   返回按钮资源图    |
+| title_bar_back_src              | reference/color |   返回按钮资源图    |
 | title_bar_right_type            |      enum       |  右侧是文本还是图片   |
-| title_bar_right_src             |    reference    |   右侧按钮资源图    |
+| title_bar_right_src             | reference/color |   右侧按钮资源图    |
 | title_bar_right_text            |     string      |     右侧文本     |
 | title_bar_title_gravity         |      enum       |     标题位置     |
 | title_bar_shadow_type           |      enum       |   shadow类型   |
