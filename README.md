@@ -106,11 +106,11 @@
 | setTitleBarBackground                      |                                   设置标题栏背景 不 包含状态栏                                   |
 | setTitleBarBackgroundResource              |                                   设置标题栏背景 不 包含状态栏                                   |
 | setTitleBarBackgroundColor                 |                                   设置标题栏背景包 不 含状态栏                                   |
-| setOnBackViewClickListener                 |                                      设置返回点击监听                                       |
 | setStatusBarBackground                     |                             设置状态栏背景(如果不设置全屏或透明状态栏是看不到的）                             |
 | setStatusBarBackgroundResource             |                             设置状态栏背景(如果不设置全屏或透明状态栏是看不到的）                             |
 | setStatusBarBackgroundColor                |                             设置状态栏背景(如果不设置全屏或透明状态栏是看不到的）                             |
 | getTitleBarStatusBar                       |                                   获取状态栏ImageView                                    |
+| setOnBackViewClickListener                 |                                      设置返回点击监听                                       |
 | setOnBackViewLongClickListener             |                                      设置返回长按监听                                       |
 | setOnRightViewClickListener                |                                      设置右侧点击监听                                       |
 | setOnRightViewLongClickListener            |                                      设置右侧长按监听                                       |
