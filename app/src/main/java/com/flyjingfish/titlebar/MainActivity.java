@@ -24,14 +24,15 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        titleBar2 = findViewById(R.id.title_bar);
-        StatusBarHelper.translucent(this);
-        StatusBarHelper.setStatusBarLightMode(this);
+//        titleBar2 = findViewById(R.id.title_bar);
+//        StatusBarHelper.translucent(this);
+//        StatusBarHelper.setStatusBarLightMode(this);
         View view = new View(this);
         view.setBackgroundColor(Color.RED);
 //        titleBar2.setCustomView(view );
 //        titleBar2.setBackgroundColor(Color.RED);
-        titleBar.setShadow(20,Color.BLACK, TitleBar.ShadowType.GRADIENT);
+//        titleBar.setShadow(20,Color.BLACK, TitleBar.ShadowType.GRADIENT);
+        Log.d("TitleBar","onCreate-getStatusbarHeight"+StatusBarHelper.getStatusbarHeight(this));
     }
 
     public void onClick(View view) {

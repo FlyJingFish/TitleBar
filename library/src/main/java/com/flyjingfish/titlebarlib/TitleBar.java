@@ -293,13 +293,6 @@ public class TitleBar extends RelativeLayout {
     private class PaddingViewTreeObserver implements ViewTreeObserver.OnGlobalLayoutListener {
         @Override
         public void onGlobalLayout() {
-            int statusBarHeight = StatusBarHelper.getStatusbarHeight(getContext());
-            ViewGroup.LayoutParams layoutParams = titleBarStatusBar.getLayoutParams();
-            layoutParams.height = statusBarHeight;
-            titleBarStatusBar.setLayoutParams(layoutParams);
-
-            LogUtils.logD("statusBarHeight="+statusBarHeight);
-
             ViewParent viewParent = getParent();
             View windowView = ((Activity) getContext()).getWindow().getDecorView();
             ViewGroup content = ((Activity) getContext()).findViewById(android.R.id.content);
