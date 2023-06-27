@@ -7,7 +7,9 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
@@ -33,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TitleBar extends ConstraintLayout {
+public class TitleBar extends RelativeLayout {
     private final ConstraintLayout titleBarContainer;
     private final ImageView titleBarStatusBar;
     private ImageView backView;
@@ -129,7 +132,6 @@ public class TitleBar extends ConstraintLayout {
 
     public TitleBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        LogUtils.isDebug(context);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TitleBar);
         View rootView = LayoutInflater.from(context).inflate(R.layout.layout_title_bar, this, true);
         backgroundView = rootView.findViewById(R.id.iv_title_bar_bg);
@@ -145,6 +147,11 @@ public class TitleBar extends ConstraintLayout {
 
 
         leftContainer.setOnClickListener(v -> ((Activity) context).finish());
+        int statusBarHeight = StatusBarHelper.getStatusbarHeight(getContext());
+        ViewGroup.LayoutParams layoutParams = titleBarStatusBar.getLayoutParams();
+        layoutParams.height = statusBarHeight;
+        titleBarStatusBar.setLayoutParams(layoutParams);
+
         if (pendingSetBackground != null) {
             setBackground(pendingSetBackground);
         }
@@ -204,7 +211,6 @@ public class TitleBar extends ConstraintLayout {
 
         a.recycle();
     }
-
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -233,7 +239,6 @@ public class TitleBar extends ConstraintLayout {
      */
     public void attachToWindow() {
         if (getContext() instanceof LifecycleOwner) {
-            LogUtils.logD("attachToWindow-hasLifecycle");
             ((LifecycleOwner) getContext()).getLifecycle().addObserver(new LifecycleEventObserver() {
                 @Override
                 public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event) {
@@ -244,7 +249,6 @@ public class TitleBar extends ConstraintLayout {
                 }
             });
         } else {
-            LogUtils.logD("attachToWindow-noLifecycle");
             settingView();
         }
     }
@@ -254,7 +258,7 @@ public class TitleBar extends ConstraintLayout {
         if (viewParent != null) {
             ((ViewGroup) viewParent).removeView(this);
         }
-        LogUtils.logD("settingView");
+
         ((ViewGroup) ((Activity) getContext()).getWindow().getDecorView()).addView(this, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         setTitleBarPaddings();
 
@@ -264,17 +268,10 @@ public class TitleBar extends ConstraintLayout {
         if (!(getContext() instanceof Activity)) {
             return;
         }
-        ViewParent viewParent = getParent();
-        View windowView = ((Activity) getContext()).getWindow().getDecorView();
-        if (viewParent == windowView) {
-            titleBarStatusBar.setVisibility(VISIBLE);
-        }
-        LogUtils.logD("setTitleBarPaddings");
+
         getViewTreeObserver().addOnGlobalLayoutListener(new PaddingViewTreeObserver() {
             @Override
             public void onGlobalLayout() {
-                super.onGlobalLayout();
-                LogUtils.logD("setTitleBarPaddings-onGlobalLayout");
                 getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
@@ -288,8 +285,6 @@ public class TitleBar extends ConstraintLayout {
             ViewGroup.LayoutParams layoutParams = titleBarStatusBar.getLayoutParams();
             layoutParams.height = statusBarHeight;
             titleBarStatusBar.setLayoutParams(layoutParams);
-
-            LogUtils.logD("statusBarHeight="+statusBarHeight);
 
             ViewParent viewParent = getParent();
             View windowView = ((Activity) getContext()).getWindow().getDecorView();
