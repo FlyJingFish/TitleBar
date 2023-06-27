@@ -132,6 +132,7 @@ public class TitleBar extends RelativeLayout {
 
     public TitleBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        LogUtils.isDebug(context);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TitleBar);
         View rootView = LayoutInflater.from(context).inflate(R.layout.layout_title_bar, this, true);
         backgroundView = rootView.findViewById(R.id.iv_title_bar_bg);
@@ -145,13 +146,14 @@ public class TitleBar extends RelativeLayout {
         rightContainer = rootView.findViewById(R.id.right_container);
         leftContainer = rootView.findViewById(R.id.left_container);
 
-
-        leftContainer.setOnClickListener(v -> ((Activity) context).finish());
         int statusBarHeight = StatusBarHelper.getStatusbarHeight(getContext());
         ViewGroup.LayoutParams layoutParams = titleBarStatusBar.getLayoutParams();
         layoutParams.height = statusBarHeight;
         titleBarStatusBar.setLayoutParams(layoutParams);
 
+        LogUtils.logD("statusBarHeight="+statusBarHeight);
+
+        leftContainer.setOnClickListener(v -> ((Activity) context).finish());
         if (pendingSetBackground != null) {
             setBackground(pendingSetBackground);
         }
@@ -211,6 +213,7 @@ public class TitleBar extends RelativeLayout {
 
         a.recycle();
     }
+
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -239,6 +242,7 @@ public class TitleBar extends RelativeLayout {
      */
     public void attachToWindow() {
         if (getContext() instanceof LifecycleOwner) {
+            LogUtils.logD("attachToWindow-hasLifecycle");
             ((LifecycleOwner) getContext()).getLifecycle().addObserver(new LifecycleEventObserver() {
                 @Override
                 public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event) {
@@ -249,6 +253,7 @@ public class TitleBar extends RelativeLayout {
                 }
             });
         } else {
+            LogUtils.logD("attachToWindow-noLifecycle");
             settingView();
         }
     }
@@ -258,7 +263,7 @@ public class TitleBar extends RelativeLayout {
         if (viewParent != null) {
             ((ViewGroup) viewParent).removeView(this);
         }
-
+        LogUtils.logD("settingView");
         ((ViewGroup) ((Activity) getContext()).getWindow().getDecorView()).addView(this, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         setTitleBarPaddings();
 
@@ -268,10 +273,17 @@ public class TitleBar extends RelativeLayout {
         if (!(getContext() instanceof Activity)) {
             return;
         }
-
+        ViewParent viewParent = getParent();
+        View windowView = ((Activity) getContext()).getWindow().getDecorView();
+        if (viewParent == windowView) {
+            titleBarStatusBar.setVisibility(VISIBLE);
+        }
+        LogUtils.logD("setTitleBarPaddings");
         getViewTreeObserver().addOnGlobalLayoutListener(new PaddingViewTreeObserver() {
             @Override
             public void onGlobalLayout() {
+                super.onGlobalLayout();
+                LogUtils.logD("setTitleBarPaddings-onGlobalLayout");
                 getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
@@ -285,6 +297,8 @@ public class TitleBar extends RelativeLayout {
             ViewGroup.LayoutParams layoutParams = titleBarStatusBar.getLayoutParams();
             layoutParams.height = statusBarHeight;
             titleBarStatusBar.setLayoutParams(layoutParams);
+
+            LogUtils.logD("statusBarHeight="+statusBarHeight);
 
             ViewParent viewParent = getParent();
             View windowView = ((Activity) getContext()).getWindow().getDecorView();
