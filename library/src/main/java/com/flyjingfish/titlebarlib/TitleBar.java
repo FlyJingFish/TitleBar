@@ -7,9 +7,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +16,6 @@ import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
@@ -36,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TitleBar extends RelativeLayout {
+public class TitleBar extends ConstraintLayout {
     private final ConstraintLayout titleBarContainer;
     private final ImageView titleBarStatusBar;
     private ImageView backView;
