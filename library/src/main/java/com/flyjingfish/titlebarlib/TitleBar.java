@@ -148,13 +148,6 @@ public class TitleBar extends RelativeLayout {
 
 
         leftContainer.setOnClickListener(v -> ((Activity) context).finish());
-        int statusBarHeight = StatusBarHelper.getStatusbarHeight(getContext());
-        ViewGroup.LayoutParams layoutParams = titleBarStatusBar.getLayoutParams();
-        layoutParams.height = statusBarHeight;
-        titleBarStatusBar.setLayoutParams(layoutParams);
-
-        LogUtils.logD("statusBarHeight="+statusBarHeight);
-
         if (pendingSetBackground != null) {
             setBackground(pendingSetBackground);
         }
@@ -214,6 +207,7 @@ public class TitleBar extends RelativeLayout {
 
         a.recycle();
     }
+
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -293,6 +287,13 @@ public class TitleBar extends RelativeLayout {
     private class PaddingViewTreeObserver implements ViewTreeObserver.OnGlobalLayoutListener {
         @Override
         public void onGlobalLayout() {
+            int statusBarHeight = StatusBarHelper.getStatusbarHeight(getContext());
+            ViewGroup.LayoutParams layoutParams = titleBarStatusBar.getLayoutParams();
+            layoutParams.height = statusBarHeight;
+            titleBarStatusBar.setLayoutParams(layoutParams);
+
+            LogUtils.logD("statusBarHeight="+statusBarHeight);
+
             ViewParent viewParent = getParent();
             View windowView = ((Activity) getContext()).getWindow().getDecorView();
             ViewGroup content = ((Activity) getContext()).findViewById(android.R.id.content);
