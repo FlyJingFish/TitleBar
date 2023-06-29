@@ -92,20 +92,20 @@
 | setTitleGravity                            |                                     设置标题位置（左中右）                                     |
 | setShadow                                  |                                   设置底部 Shadow 样式                                    |
 | setDisplayShadow                           |                                     是否显示 Shadow                                     |
-| setCustomView                              |                                      设置自定义View                                      |
+| setCustomView                              |                   设置自定义View(这里替换的是中间标题那部分，如果左右两侧的View隐藏，则会覆盖全部区域)                   |
 | getBackView                                |                                  获取返回按钮 ImageView                                   |
-| setCustomLeftView                          |                                     设置左侧自定义View                                     |
+| setCustomLeftView                          |                                设置左侧自定义View（会替换返回按钮）                                 |
 | setDisplayLeftView                         |                               设置是否显示左侧View（通常是指返回按钮）                                |
 | getRightTextView                           |                   获取右侧 TextView (获取后 右侧 ImageView 就移除了，两者只可以存在一个)                   |
 | getRightImageView                          |                   获取右侧 ImageView (获取后 右侧 TextView 就移除了，两者只可以存在一个)                   |
 | setCustomRightView                         |                          设置右侧自定义View（一个图片或一个文本的按钮不够用则用这个）                           |
 | setDisplayRightView                        |                                    设置是否显示右侧View                                     |
-| setTitleBarBackgroundWithStatusBar         |                                    设置标题栏背景包含状态栏                                     |
-| setTitleBarBackgroundResourceWithStatusBar |                                    设置标题栏背景包含状态栏                                     |
-| setTitleBarBackgroundColorWithStatusBar    |                                    设置标题栏背景包含状态栏                                     |
-| setTitleBarBackground                      |                                   设置标题栏背景 不 包含状态栏                                   |
-| setTitleBarBackgroundResource              |                                   设置标题栏背景 不 包含状态栏                                   |
-| setTitleBarBackgroundColor                 |                                   设置标题栏背景包 不 含状态栏                                   |
+| setTitleBarBackgroundWithStatusBar         |                                   设置标题栏背景「包含」状态栏                                    |
+| setTitleBarBackgroundResourceWithStatusBar |                                   设置标题栏背景「包含」状态栏                                    |
+| setTitleBarBackgroundColorWithStatusBar    |                                   设置标题栏背景「包含」状态栏                                    |
+| setTitleBarBackground                      |                                   设置标题栏背景「不包含」状态栏                                   |
+| setTitleBarBackgroundResource              |                                   设置标题栏背景「不包含」状态栏                                   |
+| setTitleBarBackgroundColor                 |                                   设置标题栏背景「不包含」状态栏                                   |
 | setStatusBarBackground                     |                             设置状态栏背景(如果不设置全屏或透明状态栏是看不到的）                             |
 | setStatusBarBackgroundResource             |                             设置状态栏背景(如果不设置全屏或透明状态栏是看不到的）                             |
 | setStatusBarBackgroundColor                |                             设置状态栏背景(如果不设置全屏或透明状态栏是看不到的）                             |
@@ -145,9 +145,9 @@
 | title_bar_title_style           |    reference    |  标题样式style   |
 
 
-### 二、 使用示例
+### 二、 使用方法
 
-**1、直接在基础Activity 中使用**
+**1、直接在基础Activity 中使用（不需要在布局中添加了，十分推荐这个方式）**
 
 ```java
 public class BaseActivity extends AppCompatActivity {
