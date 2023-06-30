@@ -42,10 +42,11 @@ public class MainActivity extends BaseActivity {
                 StatusBarHelper.setStatusBarLightMode(this);
                 titleBar.setStatusBarBackgroundColor(Color.BLUE);
                 titleBar.setTitleGravity(TitleBar.TitleGravity.START);
-                titleBar.setTitleBarBackgroundColorWithStatusBar(Color.RED);
+                titleBar.setTitleBarBackgroundColorWithStatusBar(Color.BLACK);
                 titleBar.getRightImageView().setVisibility(View.GONE);
                 titleBar.setDisplayShadow(true);
                 titleBar.setAboveContent(false);
+                titleBar.getBackTextView().setText("back");
 
                 break;
             case R.id.btn_2:

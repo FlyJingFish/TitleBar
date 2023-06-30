@@ -93,7 +93,9 @@
 | setShadow                                  |                                   设置底部 Shadow 样式                                    |
 | setDisplayShadow                           |                                     是否显示 Shadow                                     |
 | setCustomView                              |                   设置自定义View(这里替换的是中间标题那部分，如果左右两侧的View隐藏，则会覆盖全部区域)                   |
-| getBackView                                |                                  获取返回按钮 ImageView                                   |
+| getBackView                                |                               获取返回按钮 ImageView （已废弃）                                |
+| getBackTextView                            |                   获取左侧 TextView (获取后 左侧 ImageView 就移除了，两者只可以存在一个)                   |
+| getBackImageView                           |                   获取左侧 ImageView (获取后 左侧 TextView 就移除了，两者只可以存在一个)                   |
 | setCustomLeftView                          |                                设置左侧自定义View（会替换返回按钮）                                 |
 | setDisplayLeftView                         |                               设置是否显示左侧View（通常是指返回按钮）                                |
 | getRightTextView                           |                   获取右侧 TextView (获取后 右侧 ImageView 就移除了，两者只可以存在一个)                   |
@@ -130,7 +132,9 @@
 | attr                            |     format      | description  |
 |---------------------------------|:---------------:|:------------:|
 | title_bar_title                 |     string      |      标题      |
+| title_bar_back_type             |      enum       |  左侧是文本还是图片   |
 | title_bar_back_src              | reference/color |   返回按钮资源图    |
+| title_bar_back_text             |     string      |    返回按钮文本    |
 | title_bar_right_type            |      enum       |  右侧是文本还是图片   |
 | title_bar_right_src             | reference/color |   右侧按钮资源图    |
 | title_bar_right_text            |     string      |     右侧文本     |
@@ -139,8 +143,10 @@
 | title_bar_shadow                | reference/color | shadow颜色或资源图 |
 | title_bar_shadow_height         |    dimension    |   shadow高度   |
 | title_bar_status_bar_background | reference/color |    状态栏背景     |
+| title_bar_back_textView_style   |    reference    | 左侧文本样式style  |
+| title_bar_back_imageView_style  |    reference    | 左侧图片样式style  |
 | title_bar_right_textView_style  |    reference    | 右侧文本样式style  |
-| title_bar_right_imageview_style |    reference    | 右侧图片样式style  |
+| title_bar_right_imageView_style |    reference    | 右侧图片样式style  |
 | title_bar_back_view_style       |    reference    | 返回图片样式style  |
 | title_bar_title_style           |    reference    |  标题样式style   |
 
@@ -251,8 +257,8 @@ public class BaseActivity extends AppCompatActivity {
     android:layout_height="wrap_content"
     app:title_bar_right_textView_style="@style/right_text_style"
     app:title_bar_title_style="@style/title_style"
-    app:title_bar_right_imageview_style="@style/right_image_style"
-    app:title_bar_back_view_style="@style/back_style"
+    app:title_bar_right_imageView_style="@style/right_image_style"
+    app:title_bar_back_imageView_style="@style/back_style"
     app:title_bar_title="4444"
     app:title_bar_back_src="@mipmap/ic_launcher_round"
     app:title_bar_right_type="image"

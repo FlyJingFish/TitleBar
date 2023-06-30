@@ -7,9 +7,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +37,6 @@ import java.util.List;
 public class TitleBar extends RelativeLayout {
     private final ConstraintLayout titleBarContainer;
     private final ImageView titleBarStatusBar;
-    private ImageView backView;
     private final TextView titleView;
     private final FrameLayout customViewContainer;
     private final ShadowView shadowView;
@@ -54,7 +51,8 @@ public class TitleBar extends RelativeLayout {
     private Drawable pendingSetBackground;
     private final int rightTextStyle;
     private final int rightImageStyle;
-    private final int backStyle;
+    private final int backImageStyle;
+    private final int backTextStyle;
     private final PaddingViewTreeObserver paddingViewTreeObserver = new PaddingViewTreeObserver();
 
     public enum ShadowType {
@@ -100,18 +98,18 @@ public class TitleBar extends RelativeLayout {
         }
     }
 
-    public enum RightType {
+    public enum LeftRightType {
         NONE(0),
         TEXT(1),
         IMAGE(2);
 
         final int type;
 
-        RightType(int type) {
+        LeftRightType(int type) {
             this.type = type;
         }
 
-        public static RightType getType(int type) {
+        public static LeftRightType getType(int type) {
             if (type == 1) {
                 return TEXT;
             } else if (type == 2) {
@@ -178,7 +176,8 @@ public class TitleBar extends RelativeLayout {
             setShadowPixel(shadowHeight, shadowColor, shadowType);
         }
 
-        RightType rightType = RightType.getType(a.getInt(R.styleable.TitleBar_title_bar_right_type, RightType.NONE.type));
+        LeftRightType rightType = LeftRightType.getType(a.getInt(R.styleable.TitleBar_title_bar_right_type, LeftRightType.NONE.type));
+        LeftRightType leftType = LeftRightType.getType(a.getInt(R.styleable.TitleBar_title_bar_back_type, LeftRightType.IMAGE.type));
         TitleGravity titleGravity = TitleGravity.getGravity(a.getInt(R.styleable.TitleBar_title_bar_title_gravity, DEFAULT_TITLE_GRAVITY.type));
         setTitleGravity(titleGravity);
 
@@ -187,22 +186,34 @@ public class TitleBar extends RelativeLayout {
             titleView.setText(titleText);
         }
         rightTextStyle = a.getResourceId(R.styleable.TitleBar_title_bar_right_textView_style, R.style.title_bar_right_text_style);
-        rightImageStyle = a.getResourceId(R.styleable.TitleBar_title_bar_right_imageview_style, R.style.title_bar_right_image_style);
-        backStyle = a.getResourceId(R.styleable.TitleBar_title_bar_back_view_style, R.style.title_bar_back_style);
-        initBackView();
+        rightImageStyle = a.getResourceId(R.styleable.TitleBar_title_bar_right_imageView_style, R.style.title_bar_right_image_style);
+        backImageStyle = a.getResourceId(R.styleable.TitleBar_title_bar_back_imageView_style, R.style.title_bar_back_image_style);
+        backTextStyle = a.getResourceId(R.styleable.TitleBar_title_bar_back_textView_style, R.style.title_bar_back_text_style);
 
-        Drawable backDrawable = a.getDrawable(R.styleable.TitleBar_title_bar_back_src);
-        if (backDrawable != null) {
-            backView.setImageDrawable(backDrawable);
+        if (leftType == LeftRightType.TEXT) {
+            CharSequence leftText = a.getText(R.styleable.TitleBar_title_bar_back_text);
+            if (leftText != null) {
+                getBackTextView().setText(leftText);
+            } else {
+                getBackTextView();
+            }
+        } else if (leftType == LeftRightType.IMAGE) {
+            Drawable leftDrawable = a.getDrawable(R.styleable.TitleBar_title_bar_back_src);
+            if (leftDrawable != null) {
+                getBackImageView().setImageDrawable(leftDrawable);
+            } else {
+                getBackImageView();
+            }
         }
-        if (rightType == RightType.TEXT) {
+
+        if (rightType == LeftRightType.TEXT) {
             CharSequence rightText = a.getText(R.styleable.TitleBar_title_bar_right_text);
             if (rightText != null) {
                 getRightTextView().setText(rightText);
             } else {
                 getRightTextView();
             }
-        } else if (rightType == RightType.IMAGE) {
+        } else if (rightType == LeftRightType.IMAGE) {
             Drawable rightDrawable = a.getDrawable(R.styleable.TitleBar_title_bar_right_src);
             if (rightDrawable != null) {
                 getRightImageView().setImageDrawable(rightDrawable);
@@ -323,13 +334,66 @@ public class TitleBar extends RelativeLayout {
      *
      * @return TextView
      */
+    public TextView getBackTextView() {
+        TextView backTextView;
+        if (leftContainer.getChildCount() == 0 || (backTextView = leftContainer.findViewById(R.id.tv_title_bar_back)) == null) {
+            backTextView = LayoutInflater.from(new ContextThemeWrapper(getContext(), rightTextStyle)).inflate(R.layout.layout_title_bar_back_text_view, leftContainer, true).findViewById(R.id.tv_title_bar_back);
+            setContainerViewParams(backTextView, backTextStyle);
+
+//            isSetTitleGravity = true;
+        }
+        int count = leftContainer.getChildCount();
+        List<View> removeViews = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            View view = leftContainer.getChildAt(i);
+            if (view.getId() == R.id.iv_title_bar_back || view.getId() != R.id.tv_title_bar_back) {
+                removeViews.add(view);
+            }
+        }
+        for (View removeView : removeViews) {
+            leftContainer.removeView(removeView);
+        }
+        return backTextView;
+    }
+
+    /**
+     * 获取右侧 ImageView
+     *
+     * @return ImageView
+     */
+    public ImageView getBackImageView() {
+        ImageView backImageView;
+        if (leftContainer.getChildCount() == 0 || (backImageView = leftContainer.findViewById(R.id.iv_title_bar_back)) == null) {
+            backImageView = LayoutInflater.from(new ContextThemeWrapper(getContext(), backImageStyle)).inflate(R.layout.layout_title_bar_back_image_view, leftContainer, true).findViewById(R.id.iv_title_bar_back);
+            setContainerViewParams(backImageView, backImageStyle);
+//            isSetTitleGravity = true;
+        }
+        int count = leftContainer.getChildCount();
+        List<View> removeViews = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            View view = leftContainer.getChildAt(i);
+            if (view.getId() == R.id.tv_title_bar_back || view.getId() != R.id.iv_title_bar_back) {
+                removeViews.add(view);
+            }
+        }
+        for (View removeView : removeViews) {
+            leftContainer.removeView(removeView);
+        }
+        return backImageView;
+    }
+
+    /**
+     * 获取右侧 TextView
+     *
+     * @return TextView
+     */
     public TextView getRightTextView() {
         TextView rightTextView;
         if (rightContainer.getChildCount() == 0 || (rightTextView = rightContainer.findViewById(R.id.tv_right_view)) == null) {
             rightTextView = LayoutInflater.from(new ContextThemeWrapper(getContext(), rightTextStyle)).inflate(R.layout.layout_title_bar_right_text_view, rightContainer, true).findViewById(R.id.tv_right_view);
             setContainerViewParams(rightTextView, rightTextStyle);
 
-            isSetTitleGravity = true;
+//            isSetTitleGravity = true;
         }
         int count = rightContainer.getChildCount();
         List<View> removeViews = new ArrayList<>();
@@ -355,7 +419,7 @@ public class TitleBar extends RelativeLayout {
         if (rightContainer.getChildCount() == 0 || (rightImageView = rightContainer.findViewById(R.id.iv_right_view)) == null) {
             rightImageView = LayoutInflater.from(new ContextThemeWrapper(getContext(), rightImageStyle)).inflate(R.layout.layout_title_bar_right_image_view, rightContainer, true).findViewById(R.id.iv_right_view);
             setContainerViewParams(rightImageView, rightImageStyle);
-            isSetTitleGravity = true;
+//            isSetTitleGravity = true;
         }
         int count = rightContainer.getChildCount();
         List<View> removeViews = new ArrayList<>();
@@ -369,14 +433,6 @@ public class TitleBar extends RelativeLayout {
             rightContainer.removeView(removeView);
         }
         return rightImageView;
-    }
-
-    public void initBackView() {
-        leftContainer.removeAllViews();
-        if (leftContainer.getChildCount() == 0 || (backView = leftContainer.findViewById(R.id.iv_title_bar_back)) == null) {
-            backView = LayoutInflater.from(new ContextThemeWrapper(getContext(), backStyle)).inflate(R.layout.layout_title_bar_back_view, leftContainer, true).findViewById(R.id.iv_title_bar_back);
-            setContainerViewParams(backView, backStyle);
-        }
     }
 
     private void setContainerViewParams(View view, int style) {
@@ -498,9 +554,9 @@ public class TitleBar extends RelativeLayout {
      *
      * @return ImageView
      */
-    @Nullable
+    @Deprecated
     public ImageView getBackView() {
-        return backView;
+        return getBackImageView();
     }
 
     /**
@@ -714,7 +770,7 @@ public class TitleBar extends RelativeLayout {
      * @param view 自定义View
      */
     public void setCustomRightView(View view, FrameLayout.LayoutParams layoutParams) {
-        isSetTitleGravity = true;
+//        isSetTitleGravity = true;
         rightContainer.setOnClickListener(null);
         rightContainer.setOnLongClickListener(null);
         rightContainer.removeAllViews();
@@ -740,8 +796,7 @@ public class TitleBar extends RelativeLayout {
      * @param view 自定义View
      */
     public void setCustomLeftView(View view, FrameLayout.LayoutParams layoutParams) {
-        backView = null;
-        isSetTitleGravity = true;
+//        isSetTitleGravity = true;
         leftContainer.setOnClickListener(null);
         leftContainer.setOnLongClickListener(null);
         leftContainer.removeAllViews();

@@ -4,6 +4,12 @@
         <attr name="title_bar_title" format="string" />
         <attr name="title_bar_status_bar_background" format="reference|color" />
         <attr name="title_bar_back_src" format="reference|color" />
+        <attr name="title_bar_back_text" format="string" />
+        <attr name="title_bar_back_type" format="enum">
+            <enum name="none" value="0" />
+            <enum name="text" value="1" />
+            <enum name="image" value="2" />
+        </attr>
         <attr name="title_bar_right_type" format="enum">
             <enum name="none" value="0" />
             <enum name="text" value="1" />
@@ -24,8 +30,9 @@
         <attr name="title_bar_shadow" format="reference|color" />
         <attr name="title_bar_shadow_height" format="dimension" />
         <attr name="title_bar_right_textView_style" format="reference" />
-        <attr name="title_bar_right_imageview_style" format="reference" />
-        <attr name="title_bar_back_view_style" format="reference" />
+        <attr name="title_bar_right_imageView_style" format="reference" />
+        <attr name="title_bar_back_imageView_style" format="reference" />
+        <attr name="title_bar_back_textView_style" format="reference" />
         <attr name="title_bar_title_style" format="reference" />
         <attr name="android:minHeight" format="dimension"  />
     </declare-styleable>
