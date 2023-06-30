@@ -26,7 +26,7 @@
 
 ```gradle
     dependencies {
-        implementation 'com.github.FlyJingFish:TitleBar:1.2.2'
+        implementation 'com.github.FlyJingFish:TitleBar:1.2.3'
     }
 ```
 ## 第三步，使用说明
@@ -77,6 +77,11 @@
     <color name="title_bar_shadow_default_color">#4d000000</color>
     <!-- shadow 高度 -->
     <dimen name="title_bar_shadow_default_height">1dp</dimen>
+    <!-- 左侧TextView 字体大小 -->
+    <dimen name="title_bar_backTextView_textSize">16sp</dimen>
+    <!-- 左侧TextView 字体颜色 -->
+    <color name="title_bar_backTextView_textColor">#000000</color>
+    
 </resources>
 ```
 
