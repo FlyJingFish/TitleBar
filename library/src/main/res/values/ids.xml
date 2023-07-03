@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="title_bar_back_image_style" type="id"/>
+    <item name="title_bar_back_text_style" type="id"/>
+    <item name="title_bar_right_image_style" type="id"/>
+    <item name="title_bar_right_text_style" type="id"/>
+</resources>
