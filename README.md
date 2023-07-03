@@ -26,7 +26,7 @@
 
 ```gradle
     dependencies {
-        implementation 'com.github.FlyJingFish:TitleBar:1.2.3'
+        implementation 'com.github.FlyJingFish:TitleBar:1.2.4'
     }
 ```
 ## 第三步，使用说明
