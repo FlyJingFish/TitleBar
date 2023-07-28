@@ -165,6 +165,9 @@ public class TitleBar extends RelativeLayout {
             titleBarStatusBar.setVisibility(VISIBLE);
         }
 
+        Drawable backgroundWithStatusBar = a.getDrawable(R.styleable.TitleBar_title_bar_background_with_status_bar);
+        setTitleBarBackgroundWithStatusBar(backgroundWithStatusBar);
+
         ShadowType shadowType = ShadowType.getType(a.getInt(R.styleable.TitleBar_title_bar_shadow_type, ShadowType.NONE.type));
         Drawable shadowColor = a.getDrawable(R.styleable.TitleBar_title_bar_shadow);
         float shadowHeight = a.getDimension(R.styleable.TitleBar_title_bar_shadow_height, getResources().getDimension(R.dimen.title_bar_shadow_default_height));

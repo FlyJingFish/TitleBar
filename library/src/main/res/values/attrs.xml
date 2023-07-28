@@ -27,6 +27,7 @@
             <enum name="line" value="1" />
             <enum name="gradient" value="2" />
         </attr>
+        <attr name="title_bar_background_with_status_bar" format="reference|color"/>
         <attr name="title_bar_shadow" format="reference|color" />
         <attr name="title_bar_shadow_height" format="dimension" />
         <attr name="title_bar_right_textView_style" format="reference" />
