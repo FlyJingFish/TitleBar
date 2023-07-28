@@ -134,28 +134,31 @@
 
 **3、布局中属性一览**
 
-| attr                                 |     format      |  description  |
-|--------------------------------------|:---------------:|:-------------:|
-| title_bar_title                      |     string      |      标题       |
-| title_bar_back_type                  |      enum       |   左侧是文本还是图片   |
-| title_bar_back_src                   | reference/color |    返回按钮资源图    |
-| title_bar_back_text                  |     string      |    返回按钮文本     |
-| title_bar_right_type                 |      enum       |   右侧是文本还是图片   |
-| title_bar_right_src                  | reference/color |    右侧按钮资源图    |
-| title_bar_right_text                 |     string      |     右侧文本      |
-| title_bar_title_gravity              |      enum       |     标题位置      |
-| title_bar_shadow_type                |      enum       |   shadow类型    |
-| title_bar_shadow                     | reference/color | shadow颜色或资源图  |
-| title_bar_shadow_height              |    dimension    |   shadow高度    |
-| android:background（即原生属性)            | reference/color | 返回栏（不包含状态栏）背景 |
-| title_bar_background_with_status_bar | reference/color | 返回栏（包含状态栏）背景  |
-| title_bar_status_bar_background      | reference/color |    状态栏区域背景    |
-| title_bar_back_textView_style        |    reference    |  左侧文本样式style  |
-| title_bar_back_imageView_style       |    reference    |  左侧图片样式style  |
-| title_bar_right_textView_style       |    reference    |  右侧文本样式style  |
-| title_bar_right_imageView_style      |    reference    |  右侧图片样式style  |
-| title_bar_back_view_style            |    reference    |  返回图片样式style  |
-| title_bar_title_style                |    reference    |   标题样式style   |
+| attr                                 |     format      |   description    |
+|--------------------------------------|:---------------:|:----------------:|
+| title_bar_title                      |     string      |        标题        |
+| title_bar_back_type                  |      enum       |    左侧是文本还是图片     |
+| title_bar_back_src                   | reference/color |     返回按钮资源图      |
+| title_bar_back_text                  |     string      |      返回按钮文本      |
+| title_bar_right_type                 |      enum       |    右侧是文本还是图片     |
+| title_bar_right_src                  | reference/color |     右侧按钮资源图      |
+| title_bar_right_text                 |     string      |       右侧文本       |
+| title_bar_title_gravity              |      enum       |       标题位置       |
+| title_bar_shadow_type                |      enum       |     shadow类型     |
+| title_bar_shadow                     | reference/color |   shadow颜色或资源图   |
+| title_bar_shadow_height              |    dimension    |     shadow高度     |
+| android:background（即原生属性)            | reference/color |  返回栏（不包含状态栏）背景   |
+| title_bar_background_with_status_bar | reference/color |   返回栏（包含状态栏）背景   |
+| title_bar_status_bar_background      | reference/color |     状态栏区域背景      |
+| title_bar_back_textView_style        |    reference    |   左侧文本样式style    |
+| title_bar_back_imageView_style       |    reference    |   左侧图片样式style    |
+| title_bar_right_textView_style       |    reference    |   右侧文本样式style    |
+| title_bar_right_imageView_style      |    reference    |   右侧图片样式style    |
+| title_bar_back_view_style            |    reference    |   返回图片样式style    |
+| title_bar_title_style                |    reference    |    标题样式style     |
+| title_bar_back_layout                |    reference    | 左侧自定义View的layout |
+| title_bar_title_layout               |    reference    | 中间自定义View的layout |
+| title_bar_right_layout               |    reference    | 右侧自定义View的layout |
 
 
 ### 二、 使用方法
@@ -266,6 +269,7 @@ public class BaseActivity extends AppCompatActivity {
     app:title_bar_title_style="@style/title_style"
     app:title_bar_right_imageView_style="@style/right_image_style"
     app:title_bar_back_imageView_style="@style/back_style"
+    app:title_bar_title_layout="@layout/layout_title"
     app:title_bar_title="4444"
     app:title_bar_back_src="@mipmap/ic_launcher_round"
     app:title_bar_right_type="image"

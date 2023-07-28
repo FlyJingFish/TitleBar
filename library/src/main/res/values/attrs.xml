@@ -35,6 +35,9 @@
         <attr name="title_bar_back_imageView_style" format="reference" />
         <attr name="title_bar_back_textView_style" format="reference" />
         <attr name="title_bar_title_style" format="reference" />
+        <attr name="title_bar_back_layout" format="reference" />
+        <attr name="title_bar_title_layout" format="reference" />
+        <attr name="title_bar_right_layout" format="reference" />
         <attr name="android:minHeight" format="dimension"  />
     </declare-styleable>
     <declare-styleable name="TitleBar_Layout">

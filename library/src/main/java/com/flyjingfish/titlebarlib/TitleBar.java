@@ -22,6 +22,7 @@ import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.view.ContextThemeWrapper;
@@ -161,7 +162,7 @@ public class TitleBar extends RelativeLayout {
 
         Drawable statusBarBackground = a.getDrawable(R.styleable.TitleBar_title_bar_status_bar_background);
         setStatusBarBackground(statusBarBackground);
-        if (isInEditMode() && statusBarBackground != null){
+        if (isInEditMode() && statusBarBackground != null) {
             titleBarStatusBar.setVisibility(VISIBLE);
         }
 
@@ -174,7 +175,7 @@ public class TitleBar extends RelativeLayout {
         if (shadowColor instanceof ColorDrawable) {
             setShadowPixel(shadowHeight, ((ColorDrawable) shadowColor).getColor(), shadowType);
         } else if (shadowColor == null && shadowType != ShadowType.NONE) {
-            setShadowPixel(shadowHeight, ContextCompat.getColor(context,R.color.title_bar_shadow_default_color), shadowType);
+            setShadowPixel(shadowHeight, ContextCompat.getColor(context, R.color.title_bar_shadow_default_color), shadowType);
         } else {
             setShadowPixel(shadowHeight, shadowColor, shadowType);
         }
@@ -193,7 +194,20 @@ public class TitleBar extends RelativeLayout {
         backImageStyle = a.getResourceId(R.styleable.TitleBar_title_bar_back_imageView_style, R.style.title_bar_back_image_style);
         backTextStyle = a.getResourceId(R.styleable.TitleBar_title_bar_back_textView_style, R.style.title_bar_back_text_style);
 
-        if (leftType == LeftRightType.TEXT) {
+        int backLayoutRes = a.getResourceId(R.styleable.TitleBar_title_bar_back_layout, 0);
+        int titleLayoutRes = a.getResourceId(R.styleable.TitleBar_title_bar_title_layout, 0);
+        int rightLayoutRes = a.getResourceId(R.styleable.TitleBar_title_bar_right_layout, 0);
+
+        if (titleLayoutRes != 0) {
+            View titleLayout = LayoutInflater.from(context).inflate(titleLayoutRes, null, false);
+            setCustomView(titleLayout);
+        }
+
+
+        if (backLayoutRes != 0) {
+            View backLayout = LayoutInflater.from(context).inflate(backLayoutRes, null, false);
+            setCustomLeftView(backLayout);
+        } else if (leftType == LeftRightType.TEXT) {
             CharSequence leftText = a.getText(R.styleable.TitleBar_title_bar_back_text);
             if (leftText != null) {
                 getBackTextView().setText(leftText);
@@ -209,7 +223,10 @@ public class TitleBar extends RelativeLayout {
             }
         }
 
-        if (rightType == LeftRightType.TEXT) {
+        if (rightLayoutRes != 0) {
+            View rightLayout = LayoutInflater.from(context).inflate(rightLayoutRes, null, false);
+            setCustomRightView(rightLayout);
+        } else if (rightType == LeftRightType.TEXT) {
             CharSequence rightText = a.getText(R.styleable.TitleBar_title_bar_right_text);
             if (rightText != null) {
                 getRightTextView().setText(rightText);
@@ -319,7 +336,7 @@ public class TitleBar extends RelativeLayout {
             } else {
                 int[] titleBarLat = new int[2];
                 TitleBar.this.getLocationOnScreen(titleBarLat);
-                int newVisibility = contentLat[1] == 0 && titleBarLat[1] == 0? VISIBLE : GONE;
+                int newVisibility = contentLat[1] == 0 && titleBarLat[1] == 0 ? VISIBLE : GONE;
                 if (oldVisibility != newVisibility) {
                     titleBarStatusBar.setVisibility(newVisibility);
                 }
@@ -334,6 +351,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置此项之后必须 再次调用 {@link TitleBar#getRightTextView()} 才可生效
+     *
      * @param rightTextStyle 右侧 TextView 的 style
      */
     public void setRightTextStyle(@StyleRes int rightTextStyle) {
@@ -346,6 +364,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置此项之后必须 再次调用 {@link TitleBar#getRightImageView()} 才可生效
+     *
      * @param rightImageStyle 右侧 ImageView 的 style
      */
     public void setRightImageStyle(@StyleRes int rightImageStyle) {
@@ -358,6 +377,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置此项之后必须 再次调用 {@link TitleBar#getBackImageView()} 才可生效
+     *
      * @param backImageStyle 左侧 ImageView 的 style
      */
     public void setBackImageStyle(@StyleRes int backImageStyle) {
@@ -370,6 +390,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置此项之后必须 再次调用 {@link TitleBar#getBackTextView()} 才可生效
+     *
      * @param backTextStyle 左侧 TextView 的 style
      */
     public void setBackTextStyle(@StyleRes int backTextStyle) {
@@ -382,13 +403,13 @@ public class TitleBar extends RelativeLayout {
      * @return TextView
      */
     public TextView getBackTextView() {
-        if (backTextView == null || (int) backTextView.getTag(R.id.title_bar_back_text_style) != backTextStyle){
+        if (backTextView == null || (int) backTextView.getTag(R.id.title_bar_back_text_style) != backTextStyle) {
             leftContainer.removeAllViews();
             backImageView = null;
             backTextView = null;
             backTextView = LayoutInflater.from(new ContextThemeWrapper(getContext(), backTextStyle)).inflate(R.layout.layout_title_bar_back_text_view, leftContainer, true).findViewById(R.id.tv_title_bar_back);
             setContainerViewParams(backTextView, backTextStyle);
-            backTextView.setTag(R.id.title_bar_back_text_style,backTextStyle);
+            backTextView.setTag(R.id.title_bar_back_text_style, backTextStyle);
         }
         return backTextView;
     }
@@ -399,13 +420,13 @@ public class TitleBar extends RelativeLayout {
      * @return ImageView
      */
     public ImageView getBackImageView() {
-        if (backImageView == null || (int) backImageView.getTag(R.id.title_bar_back_image_style) != backImageStyle){
+        if (backImageView == null || (int) backImageView.getTag(R.id.title_bar_back_image_style) != backImageStyle) {
             leftContainer.removeAllViews();
             backImageView = null;
             backTextView = null;
             backImageView = LayoutInflater.from(new ContextThemeWrapper(getContext(), backImageStyle)).inflate(R.layout.layout_title_bar_back_image_view, leftContainer, true).findViewById(R.id.iv_title_bar_back);
             setContainerViewParams(backImageView, backImageStyle);
-            backImageView.setTag(R.id.title_bar_back_image_style,backImageStyle);
+            backImageView.setTag(R.id.title_bar_back_image_style, backImageStyle);
         }
         return backImageView;
     }
@@ -416,13 +437,13 @@ public class TitleBar extends RelativeLayout {
      * @return TextView
      */
     public TextView getRightTextView() {
-        if (rightTextView == null || (int) rightTextView.getTag(R.id.title_bar_right_text_style) != rightTextStyle){
+        if (rightTextView == null || (int) rightTextView.getTag(R.id.title_bar_right_text_style) != rightTextStyle) {
             rightContainer.removeAllViews();
             rightImageView = null;
             rightTextView = null;
             rightTextView = LayoutInflater.from(new ContextThemeWrapper(getContext(), rightTextStyle)).inflate(R.layout.layout_title_bar_right_text_view, rightContainer, true).findViewById(R.id.tv_right_view);
             setContainerViewParams(rightTextView, rightTextStyle);
-            rightTextView.setTag(R.id.title_bar_right_text_style,rightTextStyle);
+            rightTextView.setTag(R.id.title_bar_right_text_style, rightTextStyle);
         }
         return rightTextView;
     }
@@ -433,13 +454,13 @@ public class TitleBar extends RelativeLayout {
      * @return ImageView
      */
     public ImageView getRightImageView() {
-        if (rightImageView == null || (int) rightImageView.getTag(R.id.title_bar_right_image_style) != rightImageStyle){
+        if (rightImageView == null || (int) rightImageView.getTag(R.id.title_bar_right_image_style) != rightImageStyle) {
             rightContainer.removeAllViews();
             rightImageView = null;
             rightTextView = null;
             rightImageView = LayoutInflater.from(new ContextThemeWrapper(getContext(), rightImageStyle)).inflate(R.layout.layout_title_bar_right_image_view, rightContainer, true).findViewById(R.id.iv_right_view);
             setContainerViewParams(rightImageView, rightImageStyle);
-            rightImageView.setTag(R.id.title_bar_right_image_style,rightImageStyle);
+            rightImageView.setTag(R.id.title_bar_right_image_style, rightImageStyle);
         }
         return rightImageView;
     }
@@ -604,7 +625,7 @@ public class TitleBar extends RelativeLayout {
      * @param shadowDrawableRes 资源图id
      */
     public void setShadow(float shadowHeightDp, @DrawableRes int shadowDrawableRes) {
-        setShadow(shadowHeightDp,ContextCompat.getDrawable(getContext(),shadowDrawableRes));
+        setShadow(shadowHeightDp, ContextCompat.getDrawable(getContext(), shadowDrawableRes));
     }
 
     private void setShadowPixel(float shadowHeightPx, @ColorInt int shadowColor, ShadowType shadowType) {
@@ -637,7 +658,7 @@ public class TitleBar extends RelativeLayout {
 
     @Override
     public Drawable getBackground() {
-        if (titleBarContainer != null){
+        if (titleBarContainer != null) {
             return titleBarContainer.getBackground();
         }
         return super.getBackground();
@@ -645,6 +666,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 已被弃用，可以看下 {@link TitleBar#setTitleBarBackground}
+     *
      * @param background Drawable
      */
     @Deprecated
@@ -659,6 +681,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 已被弃用，可以看下 {@link TitleBar#setTitleBarBackgroundColor}
+     *
      * @param color 颜色
      */
     @Deprecated
@@ -669,6 +692,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 已被弃用，可以看下 {@link TitleBar#setTitleBarBackgroundResource}
+     *
      * @param resid 资源id
      */
     @Deprecated
@@ -679,6 +703,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 已被弃用，可以看下 {@link TitleBar#setTitleBarBackground}
+     *
      * @param background Drawable
      */
     @Deprecated
@@ -742,7 +767,7 @@ public class TitleBar extends RelativeLayout {
     }
 
     /**
-     * 设置自定义View
+     * 设置自定义View（中间的）
      *
      * @param view 自定义View
      */
@@ -751,7 +776,7 @@ public class TitleBar extends RelativeLayout {
     }
 
     /**
-     * 设置自定义View
+     * 设置自定义View（中间的）
      *
      * @param view 自定义View
      */
@@ -762,6 +787,18 @@ public class TitleBar extends RelativeLayout {
         } else {
             customViewContainer.addView(view);
         }
+    }
+
+    /**
+     *
+     * @return 获取自定义View（中间的）
+     */
+    @Nullable
+    public View getCustomView() {
+        if (customViewContainer.getChildCount() > 0) {
+            return customViewContainer.getChildAt(0);
+        }
+        return null;
     }
 
     /**
@@ -791,6 +828,18 @@ public class TitleBar extends RelativeLayout {
     }
 
     /**
+     *
+     * @return 获取右侧的自定义View
+     */
+    @Nullable
+    public View getCustomRightView() {
+        if (rightContainer.getChildCount() > 0) {
+            return rightContainer.getChildAt(0);
+        }
+        return null;
+    }
+
+    /**
      * 设置左侧自定义View
      *
      * @param view 自定义View
@@ -814,6 +863,18 @@ public class TitleBar extends RelativeLayout {
         } else {
             leftContainer.addView(view);
         }
+    }
+
+    /**
+     *
+     * @return 获取左侧的自定义View
+     */
+    @Nullable
+    public View getCustomLeftView() {
+        if (leftContainer.getChildCount() > 0) {
+            return leftContainer.getChildAt(0);
+        }
+        return null;
     }
 
     /**
@@ -990,6 +1051,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 不建议使用这个方法，因为这可能包含你不需要的东西。详情可看{@link TitleBar#getTitleBarLayoutParams}
+     *
      * @return
      */
     @Deprecated
@@ -1006,16 +1068,18 @@ public class TitleBar extends RelativeLayout {
      *  <li> 中 -> 就是返回按钮一栏
      *  <li> 下 -> 显示 shadow 的View
      * </ul>
+     *
      * @return
      */
     public ViewGroup.LayoutParams getTitleBarLayoutParams() {
         ViewGroup.LayoutParams containerLayoutParams = titleBarContainer.getLayoutParams();
         ViewGroup.LayoutParams layoutParams = super.getLayoutParams();
-        if (layoutParams != null){
+        if (layoutParams != null) {
             layoutParams.height = containerLayoutParams.height;
         }
         return layoutParams;
     }
+
     /**
      * 设置实际 {@link ViewGroup.LayoutParams} 参数，原因可看{@link TitleBar#getTitleBarLayoutParams()}<br>
      * TitleBar 高度永远是{@link ViewGroup.LayoutParams#WRAP_CONTENT}，实际上高度设定给了 返回按钮一栏
@@ -1032,40 +1096,40 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 设置整个包含状态栏和shadow 的TitleBar的 {@link ViewGroup.LayoutParams}，不建议用这个
+     *
      * @param params
      */
-    public void setRealLayoutParams(ViewGroup.LayoutParams params){
+    public void setRealLayoutParams(ViewGroup.LayoutParams params) {
         super.setLayoutParams(params);
     }
 
     /**
-     *
      * @return shadow高度
      */
-    public int getShadowHeight(){
+    public int getShadowHeight() {
         return shadowView.getHeight();
     }
 
     /**
-     *
      * @return 状态栏高度
      */
-    public int getStatusBarViewHeight(){
+    public int getStatusBarViewHeight() {
         return titleBarStatusBar.getHeight();
     }
 
     /**
      * 这个高度是包含状态栏，shadow和返回按钮一栏的总高度
+     *
      * @return 整个TitleBar 的高度
      */
-    public int getTitleBarHeight(){
+    public int getTitleBarHeight() {
         return getHeight();
     }
 
     /**
      * 设置状态栏背景
      *
-     * @param background  Drawable
+     * @param background Drawable
      */
     public void setStatusBarBackground(Drawable background) {
         titleBarStatusBar.setBackground(background);
@@ -1091,6 +1155,7 @@ public class TitleBar extends RelativeLayout {
 
     /**
      * 获取状态栏View
+     *
      * @return ImageView
      */
     public ImageView getTitleBarStatusBar() {

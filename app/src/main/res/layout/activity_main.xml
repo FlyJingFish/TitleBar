@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/title_bar"
         android:layout_marginTop="50dp"
-        app:title_bar_title="4444"
+        app:title_bar_title_layout="@layout/layout_title"
         app:title_bar_back_src="@mipmap/ic_launcher_round"
         app:title_bar_right_type="text"
         app:title_bar_right_text="3333"
