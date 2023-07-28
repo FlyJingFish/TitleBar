@@ -820,6 +820,8 @@ public class TitleBar extends RelativeLayout {
         rightContainer.setOnClickListener(null);
         rightContainer.setOnLongClickListener(null);
         rightContainer.removeAllViews();
+        rightImageView = null;
+        rightTextView = null;
         if (layoutParams != null) {
             rightContainer.addView(view, layoutParams);
         } else {
@@ -858,6 +860,8 @@ public class TitleBar extends RelativeLayout {
         leftContainer.setOnClickListener(null);
         leftContainer.setOnLongClickListener(null);
         leftContainer.removeAllViews();
+        backImageView = null;
+        backTextView = null;
         if (layoutParams != null) {
             leftContainer.addView(view, layoutParams);
         } else {
