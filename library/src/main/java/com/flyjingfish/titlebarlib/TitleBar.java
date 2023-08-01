@@ -406,7 +406,7 @@ public class TitleBar extends RelativeLayout {
     }
 
     /**
-     * 获取右侧 TextView
+     * 获取左侧 TextView
      *
      * @return TextView
      */
@@ -423,7 +423,7 @@ public class TitleBar extends RelativeLayout {
     }
 
     /**
-     * 获取右侧 ImageView
+     * 获取左侧 ImageView
      *
      * @return ImageView
      */
