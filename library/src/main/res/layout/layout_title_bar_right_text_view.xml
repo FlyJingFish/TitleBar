@@ -5,7 +5,7 @@
         android:id="@+id/tv_right_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/title_bar_rightView_marginStart"
         android:layout_marginEnd="@dimen/title_bar_rightView_marginEnd"
         />

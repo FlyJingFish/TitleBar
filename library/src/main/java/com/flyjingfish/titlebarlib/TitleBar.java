@@ -1040,7 +1040,7 @@ public class TitleBar extends RelativeLayout {
 
     @Override
     public void setVisibility(int visibility) {
-        if (isWindowTitleBar) {
+        if (isWindowTitleBar && aboveContent) {
             ViewGroup content = ((Activity) getContext()).findViewById(android.R.id.content);
             if (visibility == GONE){
                 content.setPadding(0, 0, 0, 0);
