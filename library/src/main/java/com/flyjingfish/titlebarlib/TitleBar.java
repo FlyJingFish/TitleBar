@@ -56,6 +56,8 @@ public class TitleBar extends RelativeLayout {
     private ImageView backImageView;
     private TextView rightTextView;
     private ImageView rightImageView;
+    private boolean isInitTitleBar;
+    private boolean isWindowTitleBar;
     private final PaddingViewTreeObserver paddingViewTreeObserver = new PaddingViewTreeObserver();
 
     public enum ShadowType {
@@ -272,6 +274,7 @@ public class TitleBar extends RelativeLayout {
      * 添加到 Window 层
      */
     public void attachToWindow() {
+        isWindowTitleBar = true;
         if (getContext() instanceof LifecycleOwner) {
             ((LifecycleOwner) getContext()).getLifecycle().addObserver(new LifecycleEventObserver() {
                 @Override
@@ -319,6 +322,7 @@ public class TitleBar extends RelativeLayout {
     private class PaddingViewTreeObserver implements ViewTreeObserver.OnGlobalLayoutListener {
         @Override
         public void onGlobalLayout() {
+            isInitTitleBar = true;
             ViewParent viewParent = getParent();
             View windowView = ((Activity) getContext()).getWindow().getDecorView();
             ViewGroup content = ((Activity) getContext()).findViewById(android.R.id.content);
@@ -328,7 +332,10 @@ public class TitleBar extends RelativeLayout {
             int oldVisibility = titleBarStatusBar.getVisibility();
             if (viewParent == windowView) {
                 int paddingTop = (int) (contentLat[1] == 0 ? TitleBar.this.getHeight() - shadowView.getShadowMaxLength() : titleBarContainer.getHeight());
-                content.setPadding(0, aboveContent ? paddingTop : 0, 0, 0);
+                int titleBarVisibility = getVisibility();
+                if (titleBarVisibility != GONE){
+                    content.setPadding(0, aboveContent ? paddingTop : 0, 0, 0);
+                }
                 if (oldVisibility != VISIBLE) {
                     titleBarStatusBar.setVisibility(VISIBLE);
                 }
@@ -341,6 +348,7 @@ public class TitleBar extends RelativeLayout {
                     titleBarStatusBar.setVisibility(newVisibility);
                 }
             }
+
         }
     }
 
@@ -1028,6 +1036,23 @@ public class TitleBar extends RelativeLayout {
      */
     public void show() {
         setVisibility(VISIBLE);
+    }
+
+    @Override
+    public void setVisibility(int visibility) {
+        if (isWindowTitleBar) {
+            ViewGroup content = ((Activity) getContext()).findViewById(android.R.id.content);
+            if (visibility == GONE){
+                content.setPadding(0, 0, 0, 0);
+            }else if (isInitTitleBar){
+                int[] contentLat = new int[2];
+                content.getLocationOnScreen(contentLat);
+
+                int paddingTop = (int) (contentLat[1] == 0 ? TitleBar.this.getHeight() - shadowView.getShadowMaxLength() : titleBarContainer.getHeight());
+                content.setPadding(0, aboveContent ? paddingTop : 0, 0, 0);
+            }
+        }
+        super.setVisibility(visibility);
     }
 
     public boolean isAboveContent() {
