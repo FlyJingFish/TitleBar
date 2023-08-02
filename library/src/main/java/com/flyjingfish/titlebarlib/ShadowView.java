@@ -18,6 +18,7 @@ public class ShadowView extends View {
     private int[] gradientColors;
     private float[] gradientPositions;
     private float shadowMaxLength;
+    private final float[] ptsBottom = new float[4];
 
     public ShadowView(Context context) {
         this(context,null);
@@ -58,7 +59,6 @@ public class ShadowView extends View {
 
         int height = getHeight();
         int width = getWidth();
-        float[] ptsBottom = new float[4];
 
         mBgPaint.setStrokeWidth(shadowMaxLength);
         ptsBottom[0] = 0;
