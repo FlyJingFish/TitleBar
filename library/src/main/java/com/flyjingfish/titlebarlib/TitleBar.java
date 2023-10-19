@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -325,7 +326,7 @@ public class TitleBar extends RelativeLayout {
             isInitTitleBar = true;
             ViewParent viewParent = getParent();
             View windowView = ((Activity) getContext()).getWindow().getDecorView();
-            ViewGroup content = ((Activity) getContext()).findViewById(android.R.id.content);
+            ViewGroup content = ((Activity) getContext()).findViewById(Window.ID_ANDROID_CONTENT);
             int[] contentLat = new int[2];
             content.getLocationOnScreen(contentLat);
             int leftMargin = contentLat[0];
@@ -1042,7 +1043,7 @@ public class TitleBar extends RelativeLayout {
     @Override
     public void setVisibility(int visibility) {
         if (isWindowTitleBar && aboveContent) {
-            ViewGroup content = ((Activity) getContext()).findViewById(android.R.id.content);
+            ViewGroup content = ((Activity) getContext()).findViewById(Window.ID_ANDROID_CONTENT);
             if (visibility == GONE){
                 content.setPadding(0, 0, 0, 0);
             }else if (isInitTitleBar){
