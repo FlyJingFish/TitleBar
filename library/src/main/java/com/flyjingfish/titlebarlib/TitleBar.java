@@ -331,10 +331,11 @@ public class TitleBar extends RelativeLayout {
             int leftMargin = contentLat[0];
             int oldVisibility = titleBarStatusBar.getVisibility();
             if (viewParent == windowView) {
+                int oldPaddingTop = content.getPaddingTop();
                 int paddingTop = (int) (contentLat[1] == 0 ? TitleBar.this.getHeight() - shadowView.getShadowMaxLength() : titleBarContainer.getHeight());
                 int titleBarVisibility = getVisibility();
-                if (titleBarVisibility != GONE){
-                    content.setPadding(0, aboveContent ? paddingTop : 0, 0, 0);
+                if (titleBarVisibility != GONE && aboveContent && oldPaddingTop != paddingTop){
+                    content.setPadding(0, paddingTop, 0, 0);
                 }
                 if (oldVisibility != VISIBLE) {
                     titleBarStatusBar.setVisibility(VISIBLE);
